@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 02-simulation-engine/02-02 — tick loop, action logic, SIM-02/03/04 green
-last_updated: "2026-03-14T15:12:52.267Z"
+stopped_at: "Checkpoint: 02-03 Task 2 — awaiting human verification of Phase 2 simulation output"
+last_updated: "2026-03-14T15:14:25.082Z"
 last_activity: "2026-03-14 — Plan 01-03 complete: Vite + React 19 client scaffold, 5 component stubs, TypeScript clean"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
   percent: 67
 ---
 
@@ -52,6 +52,7 @@ Progress: [███████░░░] 67%
 *Updated after each plan completion*
 | Phase 02-simulation-engine P01 | 2 | 2 tasks | 4 files |
 | Phase 02-simulation-engine P02 | 2 | 2 tasks | 2 files |
+| Phase 02-simulation-engine P03 | 5min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,7 @@ Recent decisions affecting current work:
 - [Phase 02-simulation-engine]: vitest over jest — ESM-native compatibility with NodeNext, no Babel required
 - [Phase 02-simulation-engine]: simulation.ts module-closure singleton — units Map unexported, no global state leaks
 - [Phase 02-simulation-engine]: Skip destroyed units mid-tick: unit attacked to 0 health must not have status overwritten by its own move/attack action in same tick
+- [Phase 02-simulation-engine]: initSimulation() called inside try block after server.listen() — simulation only starts if server is up
 
 ### Pending Todos
 
@@ -82,7 +84,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T15:12:52.265Z
-Stopped at: Completed 02-simulation-engine/02-02 — tick loop, action logic, SIM-02/03/04 green
+Last session: 2026-03-14T15:14:25.080Z
+Stopped at: Checkpoint: 02-03 Task 2 — awaiting human verification of Phase 2 simulation output
 Resume at: Phase 2, Plan 02-01 — Unit generation (10k Alpha + 10k Bravo)
 Resume file: None
