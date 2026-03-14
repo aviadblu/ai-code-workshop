@@ -6,7 +6,7 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 
 ## Phases
 
-- [ ] **Phase 1: Foundation** — Repo scaffold, TypeScript config, shared types, basic server + client running
+- [x] **Phase 1: Foundation** — Repo scaffold, TypeScript config, shared types, basic server + client running
 - [ ] **Phase 2: Simulation Engine** — 20k unit generation, 1-second tick loop, move/attack/idle/destroyed logic
 - [ ] **Phase 3: SSE Transport** — SSE connection manager, snapshot on connect, tick broadcast, GET /units endpoint
 - [ ] **Phase 4: Client State** — Zustand store with Map-based unit state, ring buffer events, useSSE hook
@@ -30,7 +30,7 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 Plans:
 - [x] 01-01: Root workspace + TypeScript config + shared types (`types.ts`)
 - [x] 01-02: Fastify server scaffold (entry point, CORS, health check endpoint)
-- [ ] 01-03: Vite + React 19 client scaffold (basic layout, component stubs)
+- [x] 01-03: Vite + React 19 client scaffold (basic layout, component stubs)
 
 ---
 
@@ -144,7 +144,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/3 | In progress | 2026-03-14 (01-01, 01-02) |
+| 1. Foundation | 3/3 | Complete | 2026-03-14 |
 | 2. Simulation Engine | 0/3 | Not started | - |
 | 3. SSE Transport | 0/2 | Not started | - |
 | 4. Client State | 0/2 | Not started | - |
