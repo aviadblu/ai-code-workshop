@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-03-14)
 ## Current Position
 
 Phase: 1 of 7 (Foundation)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-03-14 — Project initialized, roadmap created
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-03-14 — Plan 01-01 complete: root workspace, TypeScript configs, shared types, npm install
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█░░░░░░░░░] 5%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: —
+- Total plans completed: 1
+- Average duration: ~10min
+- Total execution time: ~10min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 1. Foundation | 1/3 | ~10min | ~10min |
 
 **Recent Trend:**
-- Last 5 plans: —
-- Trend: —
+- Last 5 plans: 01-01 (~10min)
+- Trend: baseline established
 
 *Updated after each plan completion*
 
@@ -46,6 +46,8 @@ Recent decisions affecting current work:
 - Init: Canvas 2D over WebGL — 20k dots within Canvas limits
 - Init: Zustand Map<id, Unit> — O(1) patching outside React tree
 - Init: Canvas reads getState() not hooks — decouples rAF from React renders
+- 01-01: React 19 over React 18 — 19.2.4 is current stable, no breaking changes for Phase 1
+- 01-01: Types duplicated in server/src and client/src — no shared package avoids NodeNext symlink complexity
 
 ### Pending Todos
 
@@ -58,5 +60,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-14
-Stopped at: Project initialized — all planning artifacts created
+Stopped at: Plan 01-01 complete — workspace scaffold, TypeScript configs, shared types, npm install done
+Resume at: Plan 01-02 — Fastify server scaffold (entry point, CORS, health check)
 Resume file: None
