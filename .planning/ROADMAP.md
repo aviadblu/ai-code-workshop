@@ -30,7 +30,7 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 Plans:
 - [ ] 01-01: Root workspace + TypeScript config + shared types (`types.ts`)
 - [ ] 01-02: Fastify server scaffold (entry point, CORS, health check endpoint)
-- [ ] 01-03: Vite + React 18 client scaffold (basic layout, component stubs)
+- [ ] 01-03: Vite + React 19 client scaffold (basic layout, component stubs)
 
 ---
 

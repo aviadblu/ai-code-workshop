@@ -7,7 +7,7 @@
 <domain>
 ## Phase Boundary
 
-Scaffold the entire monorepo from nothing: root npm workspace config, TypeScript configs for both apps, shared type definitions, a minimal Fastify server that boots and health-checks, and a minimal Vite + React 18 client that renders a page. No simulation logic, no SSE, no canvas — just the skeleton both apps build on.
+Scaffold the entire monorepo from nothing: root npm workspace config, TypeScript configs for both apps, shared type definitions, a minimal Fastify server that boots and health-checks, and a minimal Vite + React 19 client that renders a page. No simulation logic, no SSE, no canvas — just the skeleton both apps build on.
 
 </domain>
 
@@ -17,7 +17,7 @@ Scaffold the entire monorepo from nothing: root npm workspace config, TypeScript
 ### Repo Structure
 - Root `package.json` with `"workspaces": ["server", "client"]`
 - `server/` — Fastify app, TypeScript (tsx watch), own `package.json`
-- `client/` — Vite + React 18, TypeScript, own `package.json`
+- `client/` — Vite + React 19, TypeScript, own `package.json`
 - Root-level scripts: `dev:server`, `dev:client`, `install` delegates to workspaces
 
 ### Shared Types (types.ts)
@@ -39,7 +39,7 @@ Scaffold the entire monorepo from nothing: root npm workspace config, TypeScript
 
 ### Client
 - Build tool: Vite + `@vitejs/plugin-react`
-- Framework: React 18 + TypeScript
+- Framework: React 19 + TypeScript
 - Entry: `client/src/main.tsx` → `client/index.html`
 - Root component: `App.tsx` — renders placeholder layout with labelled component stubs
 - Dev script: `vite` (proxies `/stream` and `/units` to `http://localhost:3000`)
