@@ -94,7 +94,7 @@ interface GameEvent {
 
 ### Simulation (`simulation.ts`)
 - On startup: generate 10,000 Alpha + 10,000 Bravo units with random positions (0–1000) and random health (0–100)
-- Every 1000ms tick: select 200–350 random living units, apply one action per unit:
+- Every 1000ms tick: select 200–350 random living units (or all remaining living units if fewer than 200 survive), apply one action per unit:
   - **move** — adjust x/y by ±5
   - **attack** — reduce a nearby enemy's health by 5–20; if health ≤ 0, transition to `destroyed`
   - **idle** — no change
@@ -141,13 +141,13 @@ interface UnitsStore {
 ```
 - `applySnapshot`: replaces entire map
 - `applyDelta`: loops `delta.changes`, calls `map.set(unit.id, unit)` — O(changed) not O(20k)
-- Events ring buffer: `[...prev.slice(-49), ...newEvents]`
+- Events ring buffer: `[...prev, ...newEvents].slice(-50)` — always capped at 50 regardless of how many events arrive in a single tick
 
 ### SSE Hook (`hooks/useSSE.ts`)
 - Opens `new EventSource('/stream')` once on mount
 - `snapshot` → `store.applySnapshot()`
 - `tick` → `store.applyDelta()`
-- Native `EventSource` auto-reconnects on drop
+- Native `EventSource` auto-reconnects on drop; on reconnect, waits for a new `snapshot` event before resuming delta application — stale state is preserved but not re-rendered until the snapshot resets it
 - Closes connection on unmount
 
 ### Tactical Map (`TacticalMap.tsx`)
@@ -158,6 +158,7 @@ interface UnitsStore {
   2. Iterate all units in map
   3. Draw 2px filled circle per unit: Alpha=blue, Bravo=red, destroyed=grey (dimmed)
 - **Zone control overlay**: compute centroid of each team's living units; team with more units within a central zone radius owns it; draw tinted circle
+- Legend (Alpha=blue, Bravo=red, Zone=tinted circle) rendered as an HTML overlay positioned over the canvas — not a canvas draw call
 - No React re-renders from canvas — purely imperative
 
 ### Units Panel (`UnitsPanel.tsx`)
