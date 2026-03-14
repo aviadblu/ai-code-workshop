@@ -27,7 +27,7 @@ completed: 2026-03-14
 
 ## Performance
 - **Duration:** ~5min
-- **Tasks:** 1 of 2 complete (Task 2 is human-verify checkpoint — awaiting verification)
+- **Tasks:** 2 of 2 complete
 - **Files modified:** 1
 
 ## Accomplishments
@@ -39,7 +39,7 @@ completed: 2026-03-14
 
 ## Task Commits
 1. **Task 1: Wire simulation into index.ts** - `b3123a3`
-2. **Task 2: Verify Phase 2 end-to-end** - awaiting human checkpoint approval
+2. **Task 2: Verify Phase 2 end-to-end** - checkpoint approved (human verified all 4 success criteria)
 
 ## Files Created/Modified
 - `server/src/index.ts` - Added simulation import and wired initSimulation()/startTickLoop() after server.listen()
@@ -47,8 +47,15 @@ completed: 2026-03-14
 ## Decisions & Deviations
 - None — plan executed exactly as specified; file contents matched the plan's interface description perfectly.
 
+## Human Verification Results
+All four Phase 2 success criteria confirmed live:
+- Server logged `[sim] 20000 units generated` within 1 second of startup
+- Server logged `[sim] tick N: X changes, Y events` every ~1 second (X in 0–350)
+- Server ran stable for 10+ ticks without crashing
+- `GET /health` returned `{"status":"ok"}` with simulation running
+
 ## Next Phase Readiness
-Phase 3 (SSE stream) requires the simulation to emit TickDeltas. After checkpoint approval, `startTickLoop()` is running and `subscribe()` is available for SSE handler to consume.
+`startTickLoop()` is running in the live server process. `subscribe()` is available for Phase 3's SSE handler to consume TickDeltas. `getUnits()` returns the live 20k-unit Map for the initial snapshot endpoint.
 
 ## Self-Check: PASSED
 - `server/src/index.ts` exists and contains import + 2 calls: FOUND

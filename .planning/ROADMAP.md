@@ -46,9 +46,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Vitest scaffold + unit generation (SIM-01, TDD RED→GREEN)
-- [ ] 02-02-PLAN.md — Action logic + tick loop: move/attack/idle/destroyed, TickDelta construction (SIM-02/03/04, TDD RED→GREEN)
-- [ ] 02-03-PLAN.md — Wire simulation into index.ts + human-verify live server output
+- [x] 02-01-PLAN.md — Vitest scaffold + unit generation (SIM-01, TDD RED→GREEN)
+- [x] 02-02-PLAN.md — Action logic + tick loop: move/attack/idle/destroyed, TickDelta construction (SIM-02/03/04, TDD RED→GREEN)
+- [x] 02-03-PLAN.md — Wire simulation into index.ts + human-verify live server output
 
 ---
 
