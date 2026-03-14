@@ -46,9 +46,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Unit generation — 10k Alpha + 10k Bravo, random positions and health
-- [ ] 02-02: Tick loop — 1-second interval, random unit selection, action dispatch
-- [ ] 02-03: Action logic — move, attack (with health/destroyed transition), idle; TickDelta construction
+- [ ] 02-01-PLAN.md — Vitest scaffold + unit generation (SIM-01, TDD RED→GREEN)
+- [ ] 02-02-PLAN.md — Action logic + tick loop: move/attack/idle/destroyed, TickDelta construction (SIM-02/03/04, TDD RED→GREEN)
+- [ ] 02-03-PLAN.md — Wire simulation into index.ts + human-verify live server output
 
 ---
 
@@ -145,7 +145,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-14 |
-| 2. Simulation Engine | 0/3 | Not started | - |
+| 2. Simulation Engine | 0/3 | Planned | - |
 | 3. SSE Transport | 0/2 | Not started | - |
 | 4. Client State | 0/2 | Not started | - |
 | 5. Tactical Map | 0/3 | Not started | - |
