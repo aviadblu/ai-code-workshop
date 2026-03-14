@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: completed
+stopped_at: Completed 02-simulation-engine/02-01 — simulation module foundation, unit generation
+last_updated: "2026-03-14T15:09:35.092Z"
+last_activity: "2026-03-14 — Plan 01-03 complete: Vite + React 19 client scaffold, 5 component stubs, TypeScript clean"
+progress:
+  total_phases: 7
+  completed_phases: 1
+  total_plans: 6
+  completed_plans: 4
+  percent: 67
+---
+
 # Project State
 
 ## Project Reference
@@ -14,7 +30,7 @@ Plan: 3 of 3 complete
 Status: Phase 1 complete — ready for Phase 2
 Last activity: 2026-03-14 — Plan 01-03 complete: Vite + React 19 client scaffold, 5 component stubs, TypeScript clean
 
-Progress: [███░░░░░░░] 15%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -34,6 +50,7 @@ Progress: [███░░░░░░░] 15%
 - Trend: stable
 
 *Updated after each plan completion*
+| Phase 02-simulation-engine P01 | 2 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -50,6 +67,8 @@ Recent decisions affecting current work:
 - 01-01: Types duplicated in server/src and client/src — no shared package avoids NodeNext symlink complexity
 - 01-02: top-level await works because server/package.json has "type": "module" — Fastify 5 is ESM-first
 - 01-03: @types/react-dom 19.x required alongside @types/react 19.x — they were NOT merged; both packages needed
+- [Phase 02-simulation-engine]: vitest over jest — ESM-native compatibility with NodeNext, no Babel required
+- [Phase 02-simulation-engine]: simulation.ts module-closure singleton — units Map unexported, no global state leaks
 
 ### Pending Todos
 
@@ -61,7 +80,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14
-Stopped at: Plan 01-03 complete — Vite + React 19 scaffold, 5 component stubs, TypeScript verified
+Last session: 2026-03-14T15:09:35.090Z
+Stopped at: Completed 02-simulation-engine/02-01 — simulation module foundation, unit generation
 Resume at: Phase 2, Plan 02-01 — Unit generation (10k Alpha + 10k Bravo)
 Resume file: None
