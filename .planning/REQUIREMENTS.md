@@ -14,9 +14,9 @@
 ### Simulation
 
 - [x] **SIM-01**: Server generates 10,000 Alpha and 10,000 Bravo units with random positions (0–1000) and random health (0–100) on startup
-- [ ] **SIM-02**: Server runs a 1-second tick loop that selects 200–350 random living units per tick
-- [ ] **SIM-03**: Each selected unit performs one action per tick: move (±5 x/y), attack (reduce nearby enemy health 5–20), or idle
-- [ ] **SIM-04**: Units reaching health ≤ 0 transition to `destroyed` status
+- [x] **SIM-02**: Server runs a 1-second tick loop that selects 200–350 random living units per tick
+- [x] **SIM-03**: Each selected unit performs one action per tick: move (±5 x/y), attack (reduce nearby enemy health 5–20), or idle
+- [x] **SIM-04**: Units reaching health ≤ 0 transition to `destroyed` status
 
 ### SSE Transport
 
@@ -85,9 +85,9 @@
 | INFRA-02 | Phase 1 | Pending |
 | INFRA-03 | Phase 1 | Pending |
 | SIM-01 | Phase 2 | Complete |
-| SIM-02 | Phase 2 | Pending |
-| SIM-03 | Phase 2 | Pending |
-| SIM-04 | Phase 2 | Pending |
+| SIM-02 | Phase 2 | Complete |
+| SIM-03 | Phase 2 | Complete |
+| SIM-04 | Phase 2 | Complete |
 | SSE-01 | Phase 3 | Pending |
 | SSE-02 | Phase 3 | Pending |
 | SSE-03 | Phase 3 | Pending |
