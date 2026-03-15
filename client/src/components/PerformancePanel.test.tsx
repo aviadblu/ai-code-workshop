@@ -56,7 +56,7 @@ describe('PerformancePanel', () => {
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
     const fpsValue = screen.getByText('60 fps')
-    expect((fpsValue as HTMLElement).style.color).toBe('#22c55e')
+    expect((fpsValue as HTMLElement).style.color).toBe('rgb(34, 197, 94)')
   })
 
   it('colours FPS value yellow when fps >= 30 and < 50', () => {
@@ -66,7 +66,7 @@ describe('PerformancePanel', () => {
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
     const fpsValue = screen.getByText('40 fps')
-    expect((fpsValue as HTMLElement).style.color).toBe('#eab308')
+    expect((fpsValue as HTMLElement).style.color).toBe('rgb(234, 179, 8)')
   })
 
   it('colours FPS value red when fps < 30', () => {
@@ -76,7 +76,7 @@ describe('PerformancePanel', () => {
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
     const fpsValue = screen.getByText('20 fps')
-    expect((fpsValue as HTMLElement).style.color).toBe('#ef4444')
+    expect((fpsValue as HTMLElement).style.color).toBe('rgb(239, 68, 68)')
   })
 
   it('colours frameTime green when <= 20ms', () => {
@@ -86,7 +86,7 @@ describe('PerformancePanel', () => {
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
     const ftValue = screen.getByText('15 ms')
-    expect((ftValue as HTMLElement).style.color).toBe('#22c55e')
+    expect((ftValue as HTMLElement).style.color).toBe('rgb(34, 197, 94)')
   })
 
   it('colours frameTime red when > 33ms', () => {
@@ -96,7 +96,7 @@ describe('PerformancePanel', () => {
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
     const ftValue = screen.getByText('40 ms')
-    expect((ftValue as HTMLElement).style.color).toBe('#ef4444')
+    expect((ftValue as HTMLElement).style.color).toBe('rgb(239, 68, 68)')
   })
 
   it('colours heap green <= 200, yellow <= 500, red > 500', () => {
@@ -106,7 +106,7 @@ describe('PerformancePanel', () => {
     })
     const { unmount: unmount1 } = render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
-    expect((screen.getByText('100 MB') as HTMLElement).style.color).toBe('#22c55e')
+    expect((screen.getByText('100 MB') as HTMLElement).style.color).toBe('rgb(34, 197, 94)')
     unmount1()
 
     // yellow
@@ -115,7 +115,7 @@ describe('PerformancePanel', () => {
     })
     const { unmount: unmount2 } = render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
-    expect((screen.getByText('300 MB') as HTMLElement).style.color).toBe('#eab308')
+    expect((screen.getByText('300 MB') as HTMLElement).style.color).toBe('rgb(234, 179, 8)')
     unmount2()
 
     // red
@@ -124,6 +124,6 @@ describe('PerformancePanel', () => {
     })
     render(<PerformancePanel />)
     fireEvent.click(screen.getByRole('button', { name: 'Show Perf' }))
-    expect((screen.getByText('600 MB') as HTMLElement).style.color).toBe('#ef4444')
+    expect((screen.getByText('600 MB') as HTMLElement).style.color).toBe('rgb(239, 68, 68)')
   })
 })
