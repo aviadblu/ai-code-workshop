@@ -47,11 +47,11 @@
 
 ### Event Feed
 
-- [ ] **EVENTS-01**: Event feed displays the last 50 game events as a scrolling list, colour-coded: attack=yellow, destroyed=red, capture=green
+- [x] **EVENTS-01**: Event feed displays the last 50 game events as a scrolling list, colour-coded: attack=yellow, destroyed=red, capture=green
 
 ### KPI Bar
 
-- [ ] **KPI-01**: KPI bar shows live counts: Alpha alive, Bravo alive, total destroyed, zone control % per team — updates every tick
+- [x] **KPI-01**: KPI bar shows live counts: Alpha alive, Bravo alive, total destroyed, zone control % per team — updates every tick
 
 ### Performance Panel
 
@@ -100,8 +100,8 @@
 | UNITS-01 | Phase 6 | Complete |
 | UNITS-02 | Phase 6 | Complete |
 | UNITS-03 | Phase 6 | Complete |
-| EVENTS-01 | Phase 6 | Pending |
-| KPI-01 | Phase 6 | Pending |
+| EVENTS-01 | Phase 6 | Complete |
+| KPI-01 | Phase 6 | Complete |
 | PERF-01 | Phase 7 | Pending |
 | PERF-02 | Phase 7 | Pending |
 

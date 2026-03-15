@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 06-03-PLAN.md
-last_updated: "2026-03-15T13:57:23.518Z"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-15T13:58:11.974Z"
 last_activity: "2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass"
 progress:
   total_phases: 7
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 16
-  completed_plans: 15
+  completed_plans: 16
   percent: 100
 ---
 
@@ -64,6 +64,7 @@ Progress: [██████████] 100%
 | Phase 05-tactical-map P03 | 4min | 2 tasks | 2 files |
 | Phase 06-dashboard-panels P01 | 3min | 2 tasks | 4 files |
 | Phase 06-dashboard-panels P03 | 2min | 2 tasks | 2 files |
+| Phase 06-dashboard-panels P02 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,8 @@ Recent decisions affecting current work:
 - [Phase 06-dashboard-panels]: Test queries use getAllByText for status values that appear in both dropdown options and virtual row spans
 - [Phase 06-dashboard-panels]: Zone % computed as alive-count ratio (not computeZoneOwner canvas call) — simpler, no canvas dimensions needed
 - [Phase 06-dashboard-panels]: useMemo dep is [units] only — Map reference changes each tick via applyDelta new Map()
+- [Phase 06-dashboard-panels]: jsdom normalises hex to rgb() — test colour assertions must use rgb() format, not hex strings
+- [Phase 06-dashboard-panels]: toBeTruthy() preferred over toBeInTheDocument() — no jest-dom setup in project; getByText throws so truthiness check is sufficient
 
 ### Pending Todos
 
@@ -114,7 +117,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T13:57:23.516Z
-Stopped at: Completed 06-03-PLAN.md
+Last session: 2026-03-15T13:58:11.972Z
+Stopped at: Completed 06-02-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
