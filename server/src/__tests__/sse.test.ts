@@ -42,7 +42,8 @@ vi.mock('../simulation.js', () => ({
 }))
 
 // ─── Import registerSSE AFTER mock is set up ─────────────────────────────────
-import { registerSSE } from '../sse.js'
+import { registerSSE, registerUnitsRoute } from '../sse.js'
+import type { Unit } from '../types.js'
 
 // ─── Helper: make GET /stream request to a live server, capture initial chunk ─
 // Resolves with the body received before the connection is destroyed.
@@ -312,5 +313,64 @@ describe('Cleanup: request.raw close event removes client from clients Set', () 
     expect(() => capturedSubscribers[0](fakeDelta)).not.toThrow()
     // Second call: client was removed after first attempt, still no throw
     expect(() => capturedSubscribers[0](fakeDelta)).not.toThrow()
+  })
+})
+
+// ─── API-01: GET /units with AJV querystring validation ──────────────────────
+
+describe('GET /units', () => {
+  let server: FastifyInstance
+
+  beforeEach(async () => {
+    server = Fastify({ logger: false })
+    await server.register(cors, { origin: 'http://localhost:5173' })
+    registerSSE(server)
+    registerUnitsRoute(server)
+    await server.ready()
+  })
+
+  afterEach(async () => {
+    await server.close()
+  })
+
+  it('API-01a: returns only alpha units when team=alpha', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units?team=alpha' })
+    expect(res.statusCode).toBe(200)
+    const body = JSON.parse(res.body) as Unit[]
+    expect(body.length).toBeGreaterThan(0)
+    expect(body.every(u => u.team === 'alpha')).toBe(true)
+  })
+
+  it('API-01b: returns 400 when healthMin is not a number', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units?healthMin=abc' })
+    expect(res.statusCode).toBe(400)
+    const body = JSON.parse(res.body)
+    expect(body.message).toMatch(/must be number/)
+  })
+
+  it('API-01c: filters by healthMin correctly', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units?healthMin=50' })
+    expect(res.statusCode).toBe(200)
+    const body = JSON.parse(res.body) as Unit[]
+    expect(body.every(u => u.health >= 50)).toBe(true)
+  })
+
+  it('API-01d: filters by team and status simultaneously', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units?team=alpha&status=idle' })
+    expect(res.statusCode).toBe(200)
+    const body = JSON.parse(res.body) as Unit[]
+    expect(body.every(u => u.team === 'alpha' && u.status === 'idle')).toBe(true)
+  })
+
+  it('API-01e: returns all 20000 units with no filters', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units' })
+    expect(res.statusCode).toBe(200)
+    const body = JSON.parse(res.body) as Unit[]
+    expect(body).toHaveLength(20000)
+  })
+
+  it('API-01f: returns 400 when team is not a valid enum value', async () => {
+    const res = await server.inject({ method: 'GET', url: '/units?team=invalid' })
+    expect(res.statusCode).toBe(400)
   })
 })
