@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-15T09:33:31.775Z"
-last_activity: "2026-03-14 — Plan 02-03 complete: simulation wired into server, Phase 2 all success criteria verified live"
+status: in_progress
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-15T09:39:34Z"
+last_activity: "2026-03-15 — Plan 03-02 complete: GET /units endpoint with AJV validation, Phase 3 fully complete"
 progress:
   total_phases: 7
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 8
-  completed_plans: 7
-  percent: 67
+  completed_plans: 8
+  percent: 86
 ---
 
 # Project State
@@ -21,32 +21,34 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Tactical map and dashboard panels update live from a server-pushed stream, showing the full 20k-unit battlefield state without DOM thrashing or page reloads.
-**Current focus:** Phase 2 — Simulation Engine
+**Current focus:** Phase 4 — Client SSE Integration
 
 ## Current Position
 
-Phase: 2 of 7 (Simulation Engine) — COMPLETE
-Plan: 3 of 3 complete
-Status: Phase 2 complete — ready for Phase 3 (SSE Transport)
-Last activity: 2026-03-14 — Plan 02-03 complete: simulation wired into server, Phase 2 all success criteria verified live
+Phase: 3 of 7 (SSE Transport) — COMPLETE
+Plan: 2 of 2 complete
+Status: Phase 3 complete — ready for Phase 4 (Client SSE Integration)
+Last activity: 2026-03-15 — Plan 03-02 complete: GET /units endpoint with AJV validation, Phase 3 fully complete
 
-Progress: [███████░░░] 67%
+Progress: [████████░░] 86%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: ~7.7min
-- Total execution time: ~23min
+- Total plans completed: 8
+- Average duration: ~5min
+- Total execution time: ~40min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Foundation | 3/3 | ~23min | ~7.7min |
+| 2. Simulation Engine | 3/3 | ~9min | ~3min |
+| 3. SSE Transport | 2/2 | ~14min | ~7min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (~10min), 01-02 (~5min), 01-03 (~8min)
+- Last 5 plans: 02-03 (~5min), 03-01 (~12min), 03-02 (~2min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -54,6 +56,7 @@ Progress: [███████░░░] 67%
 | Phase 02-simulation-engine P02 | 2 | 2 tasks | 2 files |
 | Phase 02-simulation-engine P03 | 5min | 1 tasks | 1 files |
 | Phase 03-sse-transport P01 | 12min | 3 tasks | 3 files |
+| Phase 03-sse-transport P02 | 2min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -78,6 +81,7 @@ Recent decisions affecting current work:
 - [Phase 03-sse-transport]: Real HTTP server (port 0) used for SSE tests — server.inject() hangs on never-ending SSE response
 - [Phase 03-sse-transport]: vi.hoisted() used for vi.mock() factory variables — required by Vitest ESM hoisting behavior
 - [Phase 03-sse-transport]: subscribe() called once in registerSSE (not per connection) — prevents N×subscriber accumulation
+- [Phase 03-sse-transport]: AJV schema uses !== undefined guards (not truthiness) — ensures healthMin=0 and healthMax=0 filter correctly
 
 ### Pending Todos
 
@@ -89,7 +93,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T09:33:31.773Z
-Stopped at: Completed 03-01-PLAN.md
-Resume at: Phase 3, Plan 03-01 — SSE connection manager
+Last session: 2026-03-15T09:39:34Z
+Stopped at: Completed 03-02-PLAN.md
+Resume at: Phase 4, Plan 04-01 — Client SSE connection
 Resume file: None

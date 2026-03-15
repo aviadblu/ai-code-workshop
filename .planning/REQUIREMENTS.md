@@ -26,7 +26,7 @@
 
 ### API
 
-- [ ] **API-01**: `GET /units` validates query params (`team`, `status`, `healthMin`, `healthMax`, `search`) via Fastify AJV schema and returns 400 with error detail on invalid input
+- [x] **API-01**: `GET /units` validates query params (`team`, `status`, `healthMin`, `healthMax`, `search`) via Fastify AJV schema and returns 400 with error detail on invalid input
 
 ### Client State
 
@@ -91,7 +91,7 @@
 | SSE-01 | Phase 3 | Complete |
 | SSE-02 | Phase 3 | Complete |
 | SSE-03 | Phase 3 | Complete |
-| API-01 | Phase 3 | Pending |
+| API-01 | Phase 3 | Complete |
 | STATE-01 | Phase 4 | Pending |
 | STATE-02 | Phase 4 | Pending |
 | MAP-01 | Phase 5 | Pending |

@@ -8,7 +8,7 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 
 - [x] **Phase 1: Foundation** — Repo scaffold, TypeScript config, shared types, basic server + client running
 - [x] **Phase 2: Simulation Engine** — 20k unit generation, 1-second tick loop, move/attack/idle/destroyed logic (completed 2026-03-14)
-- [ ] **Phase 3: SSE Transport** — SSE connection manager, snapshot on connect, tick broadcast, GET /units endpoint
+- [x] **Phase 3: SSE Transport** — SSE connection manager, snapshot on connect, tick broadcast, GET /units endpoint (completed 2026-03-15)
 - [ ] **Phase 4: Client State** — Zustand store with Map-based unit state, ring buffer events, useSSE hook
 - [ ] **Phase 5: Tactical Map** — Canvas 2D rAF loop, unit dot rendering, zone control overlay
 - [ ] **Phase 6: Dashboard Panels** — Units panel (filters + virtual list), Event feed, KPI bar
@@ -64,8 +64,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: SSE connection manager — `Set<FastifyReply>`, snapshot on connect, cleanup on close
-- [ ] 03-02: Tick broadcast to all subscribers + `GET /units` endpoint with AJV schema validation
+- [x] 03-01: SSE connection manager — `Set<FastifyReply>`, snapshot on connect, cleanup on close
+- [x] 03-02: Tick broadcast to all subscribers + `GET /units` endpoint with AJV schema validation
 
 ---
 
@@ -146,7 +146,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-14 |
 | 2. Simulation Engine | 3/3 | Complete   | 2026-03-14 |
-| 3. SSE Transport | 1/2 | In Progress|  |
+| 3. SSE Transport | 2/2 | Complete   | 2026-03-15 |
 | 4. Client State | 0/2 | Not started | - |
 | 5. Tactical Map | 0/3 | Not started | - |
 | 6. Dashboard Panels | 0/3 | Not started | - |
