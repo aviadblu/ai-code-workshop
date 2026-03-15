@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 07-02-PLAN.md
-last_updated: "2026-03-15T14:32:19.090Z"
+stopped_at: Completed 08-01-PLAN.md
+last_updated: "2026-03-15T15:06:49.638Z"
 last_activity: "2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass"
 progress:
-  total_phases: 7
+  total_phases: 9
   completed_phases: 7
-  total_plans: 18
-  completed_plans: 18
+  total_plans: 22
+  completed_plans: 19
   percent: 100
 ---
 
@@ -67,6 +67,7 @@ Progress: [██████████] 100%
 | Phase 06-dashboard-panels P02 | 2min | 2 tasks | 2 files |
 | Phase 07-performance-panel P01 | 3min | 2 tasks | 2 files |
 | Phase 07 P02 | 2min | 2 tasks | 2 files |
+| Phase 08-gaming-ui-theme P01 | 3min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Recent decisions affecting current work:
 - [Phase 07-performance-panel]: clearInterval must be per-test vi.stubGlobal spy — vi.useFakeTimers() does not expose it as a vi spy
 - [Phase 07-performance-panel]: jsdom normalises inline hex colours to rgb() — PerformancePanel test colour assertions use rgb() not hex strings (consistent with Phase 06)
 - [Phase 07-performance-panel]: thresholdColour exported as named export for isolation testability without mounting component
+- [Phase 08-gaming-ui-theme]: Use background-image repeating-linear-gradient on .hud-panel (not ::before) — avoids z-index stacking that blocks UnitsPanel interactions
+- [Phase 08-gaming-ui-theme]: Google Fonts loaded via <link> in index.html (not @import in CSS) — parallel preconnect fetch, better performance
+- [Phase 08-gaming-ui-theme]: CSS import as first line of main.tsx — ensures HUD tokens globally available before any component renders
 
 ### Pending Todos
 
@@ -123,7 +127,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T14:28:47.404Z
-Stopped at: Completed 07-02-PLAN.md
+Last session: 2026-03-15T15:06:49.636Z
+Stopped at: Completed 08-01-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
