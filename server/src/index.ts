@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { initSimulation, startTickLoop } from './simulation.js'
+import { registerSSE } from './sse.js'
 
 const server = Fastify({ logger: true })
 
@@ -18,6 +19,7 @@ try {
   await server.listen({ port, host: '0.0.0.0' })
   initSimulation()
   startTickLoop()
+  registerSSE(server)
 } catch (err) {
   server.log.error(err)
   process.exit(1)
