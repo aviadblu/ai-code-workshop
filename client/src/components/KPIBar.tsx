@@ -2,10 +2,8 @@ import { useRef, useMemo } from 'react'
 import { useUnitsStore } from '../store/units'
 
 function PulsingValue({ value, style }: { value: React.ReactNode; style?: React.CSSProperties }) {
-  const renderCount = useRef(0)
-  renderCount.current += 1
   return (
-    <span key={renderCount.current} className="pulse-value" style={style}>
+    <span className="pulse-value" style={style}>
       {value}
     </span>
   )
@@ -25,6 +23,12 @@ const CELL: React.CSSProperties = {
 export default function KPIBar() {
   const units = useUnitsStore(s => s.units)
 
+  const alphaKey = useRef(0)
+  const bravoKey = useRef(0)
+  const destroyedKey = useRef(0)
+  const alphaZoneKey = useRef(0)
+  const bravoZoneKey = useRef(0)
+
   const kpi = useMemo(() => {
     let alphaAlive = 0, bravoAlive = 0, destroyed = 0
     for (const unit of units.values()) {
@@ -35,6 +39,11 @@ export default function KPIBar() {
     const total = alphaAlive + bravoAlive || 1
     const alphaZonePct = Math.round((alphaAlive / total) * 100)
     const bravoZonePct = 100 - alphaZonePct
+    alphaKey.current += 1
+    bravoKey.current += 1
+    destroyedKey.current += 1
+    alphaZoneKey.current += 1
+    bravoZoneKey.current += 1
     return { alphaAlive, bravoAlive, destroyed, alphaZonePct, bravoZonePct }
   }, [units])
 
@@ -42,25 +51,25 @@ export default function KPIBar() {
     <div className="hud-panel" style={{ display: 'flex', gap: 8, padding: '6px 8px', flexWrap: 'wrap' }}>
       <div style={CELL}>
         <div className="hud-label">Alpha</div>
-        <PulsingValue value={kpi.alphaAlive} style={{ color: '#3b82f6' }} />
+        <PulsingValue key={alphaKey.current} value={kpi.alphaAlive} style={{ color: '#3b82f6' }} />
       </div>
       <div style={CELL}>
         <div className="hud-label">Bravo</div>
-        <PulsingValue value={kpi.bravoAlive} style={{ color: '#ef4444' }} />
+        <PulsingValue key={bravoKey.current} value={kpi.bravoAlive} style={{ color: '#ef4444' }} />
       </div>
       <div style={CELL}>
         <span>
           <div className="hud-label" style={{ marginBottom: 2 }}>Destroyed</div>
-          <PulsingValue value={kpi.destroyed} />
+          <PulsingValue key={destroyedKey.current} value={kpi.destroyed} />
         </span>
       </div>
       <div style={CELL}>
         <div className="hud-label">Alpha Zone</div>
-        <PulsingValue value={`${kpi.alphaZonePct}%`} style={{ color: '#3b82f6' }} />
+        <PulsingValue key={alphaZoneKey.current} value={`${kpi.alphaZonePct}%`} style={{ color: '#3b82f6' }} />
       </div>
       <div style={CELL}>
         <div className="hud-label">Bravo Zone</div>
-        <PulsingValue value={`${kpi.bravoZonePct}%`} style={{ color: '#ef4444' }} />
+        <PulsingValue key={bravoZoneKey.current} value={`${kpi.bravoZonePct}%`} style={{ color: '#ef4444' }} />
       </div>
     </div>
   )
