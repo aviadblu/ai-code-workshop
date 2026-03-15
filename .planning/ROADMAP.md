@@ -146,7 +146,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-03-14 |
 | 2. Simulation Engine | 3/3 | Complete    | 2026-03-15 |
-| 3. SSE Transport | 2/2 | Complete   | 2026-03-15 |
+| 3. SSE Transport | 2/2 | Complete    | 2026-03-15 |
 | 4. Client State | 0/2 | Not started | - |
 | 5. Tactical Map | 0/3 | Not started | - |
 | 6. Dashboard Panels | 0/3 | Not started | - |
