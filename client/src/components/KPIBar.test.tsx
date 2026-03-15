@@ -90,4 +90,11 @@ describe('KPI-01: derived counts', () => {
     expect(screen.getByText('25%')).toBeTruthy()
     expect(screen.getByText('75%')).toBeTruthy()
   })
+
+  it('UI-03-f: value spans carry pulse-value class for amber animation', () => {
+    const { container } = render(<KPIBar />)
+    const pulseSpans = container.querySelectorAll('.pulse-value')
+    // Expect at least 5 pulse-value spans: alphaAlive, bravoAlive, destroyed, alphaZonePct, bravoZonePct
+    expect(pulseSpans.length).toBeGreaterThanOrEqual(5)
+  })
 })
