@@ -41,9 +41,9 @@
 
 ### Units Panel
 
-- [ ] **UNITS-01**: Units panel has a filter bar with status dropdown, health range slider (0–100), and ID/name search input
-- [ ] **UNITS-02**: Filtered unit list is virtualized with `@tanstack/virtual` — only visible rows rendered regardless of result size
-- [ ] **UNITS-03**: List columns show: ID, Team, Status, Health (colour-coded progress bar)
+- [x] **UNITS-01**: Units panel has a filter bar with status dropdown, health range slider (0–100), and ID/name search input
+- [x] **UNITS-02**: Filtered unit list is virtualized with `@tanstack/virtual` — only visible rows rendered regardless of result size
+- [x] **UNITS-03**: List columns show: ID, Team, Status, Health (colour-coded progress bar)
 
 ### Event Feed
 
@@ -97,9 +97,9 @@
 | MAP-01 | Phase 5 | Complete |
 | MAP-02 | Phase 5 | Complete |
 | MAP-03 | Phase 5 | Complete |
-| UNITS-01 | Phase 6 | Pending |
-| UNITS-02 | Phase 6 | Pending |
-| UNITS-03 | Phase 6 | Pending |
+| UNITS-01 | Phase 6 | Complete |
+| UNITS-02 | Phase 6 | Complete |
+| UNITS-03 | Phase 6 | Complete |
 | EVENTS-01 | Phase 6 | Pending |
 | KPI-01 | Phase 6 | Pending |
 | PERF-01 | Phase 7 | Pending |

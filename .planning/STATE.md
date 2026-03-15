@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 05-03-PLAN.md
-last_updated: "2026-03-15T13:21:27.836Z"
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-15T13:54:31.056Z"
 last_activity: "2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass"
 progress:
   total_phases: 7
   completed_phases: 5
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 16
+  completed_plans: 14
   percent: 100
 ---
 
@@ -62,6 +62,7 @@ Progress: [██████████] 100%
 | Phase 05-tactical-map P01 | 4min | 2 tasks | 2 files |
 | Phase 05-tactical-map P02 | 6min | 2 tasks | 2 files |
 | Phase 05-tactical-map P03 | 4min | 2 tasks | 2 files |
+| Phase 06-dashboard-panels P01 | 3min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,8 @@ Recent decisions affecting current work:
 - [Phase 05-tactical-map]: computeZoneOwner extracted as named export for testability without canvas
 - [Phase 05-tactical-map]: count-within-radius algorithm for zone ownership (not centroid distance)
 - [Phase 05-tactical-map]: alphaCount >= bravoCount tie-breaks to alpha
+- [Phase 06-dashboard-panels]: useVirtualizer keyed by unit.id not index — stable key across scroll position changes
+- [Phase 06-dashboard-panels]: Test queries use getAllByText for status values that appear in both dropdown options and virtual row spans
 
 ### Pending Todos
 
@@ -108,7 +111,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T13:18:35.230Z
-Stopped at: Completed 05-03-PLAN.md
+Last session: 2026-03-15T13:54:31.054Z
+Stopped at: Completed 06-01-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
