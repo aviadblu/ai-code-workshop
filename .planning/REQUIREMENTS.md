@@ -70,7 +70,7 @@
 
 - [x] **MAP-04**: Tactical map supports mouse-wheel zoom (0.5×–20× range, centered on cursor position) — zoom transforms the canvas rendering coordinate system, not CSS scale
 - [x] **MAP-05**: Tactical map supports mouse-drag pan — left-button drag shifts the canvas origin offset; pan is constrained so the map cannot be dragged fully off-screen
-- [ ] **MAP-06**: Map controls bar shows current zoom level, zoom-in (+), zoom-out (−), and reset-to-fit buttons; `R` keyboard shortcut also resets view
+- [x] **MAP-06**: Map controls bar shows current zoom level, zoom-in (+), zoom-out (−), and reset-to-fit buttons; `R` keyboard shortcut also resets view
 
 ### Potential Future Scope
 
@@ -121,7 +121,7 @@
 | UI-03 | Phase 8 | Complete |
 | MAP-04 | Phase 9 | Complete |
 | MAP-05 | Phase 9 | Complete |
-| MAP-06 | Phase 9 | Pending |
+| MAP-06 | Phase 9 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total
