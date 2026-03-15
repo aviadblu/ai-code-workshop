@@ -1,5 +1,5 @@
 import { act } from 'react'
-import { render as rtlRender, screen } from '@testing-library/react'
+import { render as rtlRender, screen, fireEvent } from '@testing-library/react'
 import TacticalMap, { computeZoneOwner, worldToScreen, screenToWorld, clampPan, applyZoom, MIN_SCALE, MAX_SCALE } from './TacticalMap'
 import type { Unit } from '../types'
 
@@ -422,5 +422,46 @@ describe('MAP-05: clampPan', () => {
     // offset {x:0} is within bounds → returns {x:0, y:0}
     const result = clampPan({ x: 0, y: 0 }, 2, 1000, 1000)
     expect(result).toEqual({ x: 0, y: 0 })
+  })
+})
+
+describe('MAP-06: controls bar', () => {
+  function setupCanvas(container: Element, width = 800, height = 600) {
+    const canvas = container.querySelector('canvas') as HTMLCanvasElement
+    Object.defineProperty(canvas, 'width', { value: width, writable: true, configurable: true })
+    Object.defineProperty(canvas, 'height', { value: height, writable: true, configurable: true })
+    return canvas
+  }
+
+  test('MAP-06-a: controls bar renders a zoom-in button with "+" text', () => {
+    rtlRender(<TacticalMap />)
+    expect(screen.getByRole('button', { name: /zoom in|\+/i })).toBeTruthy()
+  })
+
+  test('MAP-06-b: controls bar renders a zoom-out button with "−" text', () => {
+    rtlRender(<TacticalMap />)
+    expect(screen.getByRole('button', { name: /zoom out|−/i })).toBeTruthy()
+  })
+
+  test('MAP-06-c: controls bar renders a Reset button', () => {
+    rtlRender(<TacticalMap />)
+    expect(screen.getByRole('button', { name: /reset/i })).toBeTruthy()
+  })
+
+  test('MAP-06-d: controls bar shows initial zoom as "100%"', () => {
+    rtlRender(<TacticalMap />)
+    expect(screen.getByText('100%')).toBeTruthy()
+  })
+
+  test('MAP-06-e: pressing R key does not crash and zoom display remains "100%"', () => {
+    rtlRender(<TacticalMap />)
+    act(() => { fireEvent.keyDown(window, { key: 'R' }) })
+    expect(screen.getByText('100%')).toBeTruthy()
+  })
+
+  test('MAP-06-f: pressing lowercase r key does not crash and zoom display remains "100%"', () => {
+    rtlRender(<TacticalMap />)
+    act(() => { fireEvent.keyDown(window, { key: 'r' }) })
+    expect(screen.getByText('100%')).toBeTruthy()
   })
 })
