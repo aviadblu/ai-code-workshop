@@ -64,7 +64,7 @@
 
 - [x] **UI-01**: Global dark military theme applied to all panels — `#0a0a0a` background, military green (`#00ff41`) primary accent, amber (`#ff8c00`) warning, monospace font (`'Share Tech Mono', monospace`), CSS custom properties at `:root` level
 - [x] **UI-02**: All panels styled as HUD overlays — 1px military-green border, subtle scanline background texture (CSS repeating-linear-gradient), glow effects on live-updating values, ALLCAPS section labels
-- [ ] **UI-03**: KPI bar restyled as tactical readout — each metric in a bordered inset cell, team-coloured alpha/bravo values, amber pulse animation on value changes
+- [x] **UI-03**: KPI bar restyled as tactical readout — each metric in a bordered inset cell, team-coloured alpha/bravo values, amber pulse animation on value changes
 
 ### Interactive Tactical Map
 
@@ -118,7 +118,7 @@
 | PERF-02 | Phase 7 | Complete |
 | UI-01 | Phase 8 | Complete |
 | UI-02 | Phase 8 | Complete |
-| UI-03 | Phase 8 | Pending |
+| UI-03 | Phase 8 | Complete |
 | MAP-04 | Phase 9 | Pending |
 | MAP-05 | Phase 9 | Pending |
 | MAP-06 | Phase 9 | Pending |

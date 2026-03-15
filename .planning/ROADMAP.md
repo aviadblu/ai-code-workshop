@@ -13,7 +13,7 @@ Build a live battle dashboard from scratch in 9 phases. Start with repo scaffold
 - [x] **Phase 5: Tactical Map** — Canvas 2D rAF loop, unit dot rendering, zone control overlay (completed 2026-03-15)
 - [x] **Phase 6: Dashboard Panels** — Units panel (filters + virtual list), Event feed, KPI bar (completed 2026-03-15)
 - [x] **Phase 7: Performance Panel** — FPS/heap/latency monitoring, 2Hz updates, collapsible UI (completed 2026-03-15)
-- [ ] **Phase 8: Gaming UI Theme** — CoD-style military HUD aesthetic, dark theme, scanlines, animated indicators
+- [x] **Phase 8: Gaming UI Theme** — CoD-style military HUD aesthetic, dark theme, scanlines, animated indicators (completed 2026-03-15)
 - [ ] **Phase 9: Interactive Tactical Map** — Mouse-wheel zoom, drag-to-pan, controls bar with reset
 
 ## Phase Details
@@ -189,5 +189,5 @@ Plans:
 | 5. Tactical Map | 3/3 | Complete    | 2026-03-15 |
 | 6. Dashboard Panels | 3/3 | Complete    | 2026-03-15 |
 | 7. Performance Panel | 2/2 | Complete    | 2026-03-15 |
-| 8. Gaming UI Theme | 1/2 | In Progress|  |
+| 8. Gaming UI Theme | 2/2 | Complete   | 2026-03-15 |
 | 9. Interactive Tactical Map | 0/2 | Pending | — |
