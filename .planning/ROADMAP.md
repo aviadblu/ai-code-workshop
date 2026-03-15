@@ -81,8 +81,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Zustand store — `Map<string, Unit>`, ring buffer events, `applySnapshot`, `applyDelta`
-- [ ] 04-02: `useSSE` hook — `EventSource` lifecycle, snapshot/tick handlers, reconnect on drop
+- [ ] 04-01-PLAN.md — Zustand units store: install deps, Vitest config, TDD RED→GREEN for `Map<string, Unit>` + ring buffer (STATE-01, STATE-02)
+- [ ] 04-02-PLAN.md — `useSSE` hook: EventSource lifecycle, snapshot/tick handlers wired to store, wire into App.tsx
 
 ---
 
