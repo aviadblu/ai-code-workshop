@@ -2,7 +2,7 @@
 
 ## Overview
 
-Build a live battle dashboard from scratch in 7 phases. Start with repo scaffolding and TypeScript setup, layer in the server simulation and SSE transport, then build the client state layer and canvas renderer, and finish with the dashboard panels and performance monitoring. Each phase delivers a working, independently testable slice of the system.
+Build a live battle dashboard from scratch in 9 phases. Start with repo scaffolding and TypeScript setup, layer in the server simulation and SSE transport, then build the client state layer and canvas renderer, and finish with the dashboard panels and performance monitoring. Each phase delivers a working, independently testable slice of the system.
 
 ## Phases
 
@@ -13,6 +13,8 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 - [x] **Phase 5: Tactical Map** — Canvas 2D rAF loop, unit dot rendering, zone control overlay (completed 2026-03-15)
 - [x] **Phase 6: Dashboard Panels** — Units panel (filters + virtual list), Event feed, KPI bar (completed 2026-03-15)
 - [x] **Phase 7: Performance Panel** — FPS/heap/latency monitoring, 2Hz updates, collapsible UI (completed 2026-03-15)
+- [ ] **Phase 8: Gaming UI Theme** — CoD-style military HUD aesthetic, dark theme, scanlines, animated indicators
+- [ ] **Phase 9: Interactive Tactical Map** — Mouse-wheel zoom, drag-to-pan, controls bar with reset
 
 ## Phase Details
 
@@ -140,6 +142,42 @@ Plans:
 
 ---
 
+### Phase 8: Gaming UI Theme
+**Goal**: All panels and the global layout adopt a Call of Duty–style military HUD aesthetic — dark background, military green accents, scanline textures, monospace typography, and animated live-value indicators
+**Depends on**: Phase 7
+**Requirements**: UI-01, UI-02, UI-03
+**Success Criteria** (what must be TRUE):
+  1. App background is `#0a0a0a`; primary accent is military green `#00ff41`; monospace font applied globally
+  2. Every panel has a 1px military-green border and a faint scanline background texture
+  3. KPI bar shows each metric in a bordered inset cell with team-coloured values
+  4. Live-updating values show an amber pulse animation on change
+  5. No existing functionality broken — all tests still pass
+**Plans**: 2 plans
+
+Plans:
+- [ ] 08-01: Global theme foundation — CSS custom properties, font import, root background, shared HUD panel styles
+- [ ] 08-02: Component restyling — KPI bar, Units panel, Event feed, Performance panel, Tactical map overlay all adopt HUD styles
+
+---
+
+### Phase 9: Interactive Tactical Map
+**Goal**: Tactical map supports mouse-wheel zoom and mouse-drag pan within the canvas rendering coordinate system — live 60fps rendering continues uninterrupted during and after transforms
+**Depends on**: Phase 5
+**Requirements**: MAP-04, MAP-05, MAP-06
+**Success Criteria** (what must be TRUE):
+  1. Mouse wheel zooms the map 0.5×–20×, centered on the cursor position
+  2. Left-button drag pans the map; map cannot be dragged entirely off-screen
+  3. Controls bar shows zoom level, +/− buttons, and reset button; `R` key resets to fit
+  4. rAF draw loop applies zoom/pan transform on every frame — no jank during live updates
+  5. All existing canvas unit-rendering and zone-overlay logic still works at any zoom level
+**Plans**: 2 plans
+
+Plans:
+- [ ] 09-01-PLAN.md — Transform refs + pure math exports (worldToScreen, screenToWorld, clampPan, applyZoom) + wheel/drag handlers + rAF ctx.save/translate/scale/restore (MAP-04, MAP-05)
+- [ ] 09-02-PLAN.md — Controls bar JSX + handleReset + handleZoomStep + R keydown handler (MAP-06)
+
+---
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -151,3 +189,5 @@ Plans:
 | 5. Tactical Map | 3/3 | Complete    | 2026-03-15 |
 | 6. Dashboard Panels | 3/3 | Complete    | 2026-03-15 |
 | 7. Performance Panel | 2/2 | Complete    | 2026-03-15 |
+| 8. Gaming UI Theme | 0/2 | Pending | — |
+| 9. Interactive Tactical Map | 0/2 | Pending | — |
