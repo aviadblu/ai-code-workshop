@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 08-02-PLAN.md
-last_updated: "2026-03-15T21:10:37.224Z"
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-03-15T21:14:19.265Z"
 last_activity: "2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass"
 progress:
   total_phases: 9
   completed_phases: 8
   total_plans: 22
-  completed_plans: 20
+  completed_plans: 21
   percent: 100
 ---
 
@@ -69,6 +69,7 @@ Progress: [██████████] 100%
 | Phase 07 P02 | 2min | 2 tasks | 2 files |
 | Phase 08-gaming-ui-theme P01 | 3min | 3 tasks | 4 files |
 | Phase 08-gaming-ui-theme P02 | 3min | 3 tasks | 7 files |
+| Phase 09-interactive-tactical-map P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -119,6 +120,7 @@ Recent decisions affecting current work:
 - [Phase 08-gaming-ui-theme]: CSS import as first line of main.tsx — ensures HUD tokens globally available before any component renders
 - [Phase 08-gaming-ui-theme]: PulsingValue Destroyed cell: outer span wrapper with div.hud-label so .closest('span') finds parent span containing label+value text (passes KPI-01-c)
 - [Phase 08-gaming-ui-theme]: TacticalMap MAP-03-g test updated to regex /ALPHA//BRAVO//KIA/ after intentional ALLCAPS legend rename
+- [Phase 09-interactive-tactical-map]: Refs not useState for scale/offset — no React re-renders from wheel/drag interactions; window-level mousemove/mouseup for drag-outside-canvas; non-passive wheel addEventListener to allow e.preventDefault(); displayZoom useState(100) declared for Plan 09-02 controls bar
 
 ### Pending Todos
 
@@ -130,7 +132,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T21:02:56.327Z
-Stopped at: Completed 08-02-PLAN.md
+Last session: 2026-03-15T21:14:19.262Z
+Stopped at: Completed 09-01-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
