@@ -1,4 +1,3 @@
-import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react'
 import { render as rtlRender } from '@testing-library/react'
 import TacticalMap from './TacticalMap'
@@ -14,7 +13,8 @@ const mockCtx = {
   strokeStyle: '' as string,
   lineWidth: 0,
 }
-HTMLCanvasElement.prototype.getContext = vi.fn(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(HTMLCanvasElement.prototype as any).getContext = vi.fn(
   () => mockCtx as unknown as CanvasRenderingContext2D
 )
 
