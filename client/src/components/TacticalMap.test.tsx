@@ -1,6 +1,7 @@
 import { act } from 'react'
-import { render as rtlRender } from '@testing-library/react'
-import TacticalMap from './TacticalMap'
+import { render as rtlRender, screen } from '@testing-library/react'
+import TacticalMap, { computeZoneOwner } from './TacticalMap'
+import type { Unit } from '../types'
 
 // Canvas mock — jsdom does not implement Canvas 2D
 const mockCtx = {
@@ -228,5 +229,109 @@ describe('MAP-01: rAF loop + canvas scaffold', () => {
     })
 
     expect(mockCtx.clearRect).toHaveBeenCalledWith(0, 0, 800, 600)
+  })
+})
+
+// ─── MAP-03: zone control overlay ──────────────────────────────────────────
+
+describe('MAP-03: zone control overlay', () => {
+  // 1000×1000 canvas, centre (500,500), zoneRadius = 200 (= 1000 * 0.2)
+  const CX = 500, CY = 500, R = 200, W = 1000, H = 1000
+
+  function makeUnit(
+    id: string,
+    team: 'alpha' | 'bravo',
+    x: number,
+    y: number,
+    status: 'idle' | 'destroyed' = 'idle',
+  ): Unit {
+    return { id, team, x, y, health: 80, status }
+  }
+
+  function setupCanvas(container: Element, width = 1000, height = 1000) {
+    const canvas = container.querySelector('canvas') as HTMLCanvasElement
+    Object.defineProperty(canvas, 'width', { value: width, writable: true, configurable: true })
+    Object.defineProperty(canvas, 'height', { value: height, writable: true, configurable: true })
+    return canvas
+  }
+
+  // MAP-03-a: 3 alpha + 1 bravo inside radius → alpha wins
+  test('MAP-03-a: returns alpha when more living Alpha units are within the radius', () => {
+    const units = new Map<string, Unit>([
+      ['a1', makeUnit('a1', 'alpha', 500, 500)],
+      ['a2', makeUnit('a2', 'alpha', 500, 500)],
+      ['a3', makeUnit('a3', 'alpha', 500, 500)],
+      ['b1', makeUnit('b1', 'bravo', 500, 500)],
+    ])
+    expect(computeZoneOwner(units, CX, CY, R, W, H)).toBe('alpha')
+  })
+
+  // MAP-03-b: 1 alpha + 3 bravo inside radius → bravo wins
+  test('MAP-03-b: returns bravo when more living Bravo units are within the radius', () => {
+    const units = new Map<string, Unit>([
+      ['a1', makeUnit('a1', 'alpha', 500, 500)],
+      ['b1', makeUnit('b1', 'bravo', 500, 500)],
+      ['b2', makeUnit('b2', 'bravo', 500, 500)],
+      ['b3', makeUnit('b3', 'bravo', 500, 500)],
+    ])
+    expect(computeZoneOwner(units, CX, CY, R, W, H)).toBe('bravo')
+  })
+
+  // MAP-03-c: 2 alpha + 2 bravo → tie → alpha wins
+  test('MAP-03-c: returns alpha on a tie (alphaCount >= bravoCount)', () => {
+    const units = new Map<string, Unit>([
+      ['a1', makeUnit('a1', 'alpha', 500, 500)],
+      ['a2', makeUnit('a2', 'alpha', 500, 500)],
+      ['b1', makeUnit('b1', 'bravo', 500, 500)],
+      ['b2', makeUnit('b2', 'bravo', 500, 500)],
+    ])
+    expect(computeZoneOwner(units, CX, CY, R, W, H)).toBe('alpha')
+  })
+
+  // MAP-03-d: 2 alpha destroyed + 1 bravo living → bravo wins (destroyed excluded)
+  test('MAP-03-d: excludes destroyed units from the zone count', () => {
+    const units = new Map<string, Unit>([
+      ['a1', makeUnit('a1', 'alpha', 500, 500, 'destroyed')],
+      ['a2', makeUnit('a2', 'alpha', 500, 500, 'destroyed')],
+      ['b1', makeUnit('b1', 'bravo', 500, 500)],
+    ])
+    expect(computeZoneOwner(units, CX, CY, R, W, H)).toBe('bravo')
+  })
+
+  // MAP-03-e: empty alpha, 1 bravo → bravo wins
+  test('MAP-03-e: returns bravo when the only in-zone units are Bravo', () => {
+    const units = new Map<string, Unit>([
+      ['b1', makeUnit('b1', 'bravo', 500, 500)],
+    ])
+    expect(computeZoneOwner(units, CX, CY, R, W, H)).toBe('bravo')
+  })
+
+  // MAP-03-f: In rAF draw callback, ctx.arc is called an extra time beyond per-unit calls
+  test('MAP-03-f: ctx.arc is called an extra time (zone arc) beyond the per-unit calls', () => {
+    const testUnits = new Map<string, Unit>([
+      ['u1', makeUnit('u1', 'alpha', 500, 500)],
+      ['u2', makeUnit('u2', 'bravo', 300, 300)],
+    ])
+    ;(useUnitsStore.getState as ReturnType<typeof vi.fn>).mockReturnValue({
+      units: testUnits,
+      events: [],
+      tick: 0,
+    })
+
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    // 2 units → 2 unit arc calls, plus 1 zone arc call = 3 total
+    expect(mockCtx.arc.mock.calls.length).toBeGreaterThan(testUnits.size)
+  })
+
+  // MAP-03-g: Legend div renders in the DOM with text Alpha, Bravo, Destroyed
+  test('MAP-03-g: legend div renders in the DOM with Alpha, Bravo, Destroyed labels', () => {
+    rtlRender(<TacticalMap />)
+    expect(screen.getByText('Alpha')).toBeTruthy()
+    expect(screen.getByText('Bravo')).toBeTruthy()
+    expect(screen.getByText('Destroyed')).toBeTruthy()
   })
 })
