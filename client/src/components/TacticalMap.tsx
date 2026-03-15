@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useUnitsStore } from '../store/units'
 
+const COLOURS = {
+  alpha: '#3b82f6',
+  bravo: '#ef4444',
+  destroyed: '#6b7280',
+} as const
+
 export default function TacticalMap() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -42,8 +48,15 @@ export default function TacticalMap() {
       const { units } = useUnitsStore.getState()
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Unit dots placeholder — plan 05-02 adds dot rendering
-      void units
+      for (const unit of units.values()) {
+        const colour = unit.status === 'destroyed' ? COLOURS.destroyed : COLOURS[unit.team]
+        const px = (unit.x / 1000) * canvas.width
+        const py = (unit.y / 1000) * canvas.height
+        ctx.fillStyle = colour
+        ctx.beginPath()
+        ctx.arc(px, py, 1, 0, Math.PI * 2)
+        ctx.fill()
+      }
 
       rafId = requestAnimationFrame(draw)
     }
