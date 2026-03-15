@@ -9,6 +9,8 @@ beforeEach(() => {
   rafTimestamp = 0
   rafCallback = null
 
+  vi.useFakeTimers()
+
   vi.stubGlobal('requestAnimationFrame', vi.fn((cb: FrameRequestCallback) => {
     rafCallback = cb
     return 1
@@ -167,17 +169,19 @@ describe('usePerformance', () => {
 
   it('calls cancelAnimationFrame, clearInterval, observer.disconnect, unsubscribe on unmount', () => {
     const mockDisconnect = vi.fn()
+    const mockClearInterval = vi.fn()
     vi.stubGlobal('PerformanceObserver', vi.fn().mockImplementation(() => ({
       observe: vi.fn(),
       disconnect: mockDisconnect,
     })))
+    vi.stubGlobal('clearInterval', mockClearInterval)
 
     const { unmount } = renderHook(() => usePerformance())
 
     unmount()
 
     expect(cancelAnimationFrame).toHaveBeenCalled()
-    expect(clearInterval).toHaveBeenCalled()
+    expect(mockClearInterval).toHaveBeenCalled()
     expect(mockDisconnect).toHaveBeenCalled()
     // Zustand unsubscribe is tested implicitly — no subscription leak after unmount
   })
