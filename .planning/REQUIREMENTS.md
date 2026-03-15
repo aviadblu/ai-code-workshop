@@ -56,7 +56,7 @@
 ### Performance Panel
 
 - [x] **PERF-01**: Performance panel displays FPS, frame time (ms), JS heap (MB), API latency, and store update rate — all sourced from browser APIs only
-- [ ] **PERF-02**: Performance panel updates at 2Hz, is conditionally mounted (zero overhead when closed), and applies green/yellow/red health thresholds per metric
+- [x] **PERF-02**: Performance panel updates at 2Hz, is conditionally mounted (zero overhead when closed), and applies green/yellow/red health thresholds per metric
 
 ## v2 Requirements
 
@@ -103,7 +103,7 @@
 | EVENTS-01 | Phase 6 | Complete |
 | KPI-01 | Phase 6 | Complete |
 | PERF-01 | Phase 7 | Complete |
-| PERF-02 | Phase 7 | Pending |
+| PERF-02 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 23 total
