@@ -8,8 +8,22 @@ import { useSSE } from './hooks/useSSE'
 export default function App() {
   useSSE()
   return (
-    <div style={{ fontFamily: 'monospace', padding: '1rem' }}>
-      <h1>War Room Control</h1>
+    <div style={{
+      fontFamily: 'var(--hud-font)',
+      background: 'var(--hud-bg)',
+      color: 'var(--hud-green)',
+      minHeight: '100vh',
+      padding: '1rem',
+    }}>
+      <h1 style={{
+        color: 'var(--hud-green)',
+        textTransform: 'uppercase',
+        letterSpacing: '0.2em',
+        fontSize: '1.1rem',
+        marginBottom: '1rem',
+      }}>
+        War Room Control
+      </h1>
       <div style={{ marginBottom: '1rem' }}>
         <KPIBar />
       </div>
@@ -17,7 +31,7 @@ export default function App() {
         <div>
           <TacticalMap />
         </div>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <UnitsPanel />
           <EventFeed />
           <PerformancePanel />
