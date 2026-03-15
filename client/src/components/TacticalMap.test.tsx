@@ -1,6 +1,6 @@
 import { act } from 'react'
 import { render as rtlRender, screen } from '@testing-library/react'
-import TacticalMap, { computeZoneOwner } from './TacticalMap'
+import TacticalMap, { computeZoneOwner, worldToScreen, screenToWorld, clampPan, applyZoom, MIN_SCALE, MAX_SCALE } from './TacticalMap'
 import type { Unit } from '../types'
 
 // Canvas mock — jsdom does not implement Canvas 2D
@@ -13,6 +13,10 @@ const mockCtx = {
   fillStyle: '' as string,
   strokeStyle: '' as string,
   lineWidth: 0,
+  save: vi.fn(),
+  restore: vi.fn(),
+  translate: vi.fn(),
+  scale: vi.fn(),
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(HTMLCanvasElement.prototype as any).getContext = vi.fn(
@@ -335,5 +339,88 @@ describe('MAP-03: zone control overlay', () => {
     expect(screen.getByText(/ALPHA/)).toBeTruthy()
     expect(screen.getByText(/BRAVO/)).toBeTruthy()
     expect(screen.getByText(/KIA/)).toBeTruthy()
+  })
+})
+
+// ─── MAP-04: coordinate math pure functions ────────────────────────────────
+
+describe('MAP-04: coordinate math pure functions', () => {
+  test('MAP-04-a: worldToScreen identity at scale=1, offset={0,0}', () => {
+    const result = worldToScreen(500, 500, 1, { x: 0, y: 0 }, 1000, 1000)
+    expect(result).toEqual({ x: 500, y: 500 })
+  })
+
+  test('MAP-04-b: worldToScreen with scale=2 and non-zero offset', () => {
+    const result = worldToScreen(0, 0, 2, { x: 50, y: 50 }, 1000, 1000)
+    expect(result).toEqual({ x: 50, y: 50 })
+  })
+
+  test('MAP-04-c: screenToWorld identity at scale=1, offset={0,0}', () => {
+    const result = screenToWorld(500, 500, 1, { x: 0, y: 0 }, 1000, 1000)
+    expect(result).toEqual({ x: 500, y: 500 })
+  })
+
+  test('MAP-04-d: worldToScreen and screenToWorld are inverses', () => {
+    const wx = 200, wy = 300, s = 2, off = { x: 10, y: 20 }, W = 1000, H = 1000
+    const screen = worldToScreen(wx, wy, s, off, W, H)
+    const back = screenToWorld(screen.x, screen.y, s, off, W, H)
+    expect(back.x).toBeCloseTo(wx, 5)
+    expect(back.y).toBeCloseTo(wy, 5)
+  })
+
+  test('MAP-04-e: applyZoom returns ~1.1 scale from scale=1 with zoomFactor=1.1', () => {
+    const result = applyZoom(500, 500, 1, { x: 0, y: 0 }, 1.1, 1000, 1000)
+    expect(Math.abs(result.scale - 1.1)).toBeLessThan(0.001)
+  })
+
+  test('MAP-04-f: applyZoom clamps scale at MAX_SCALE=20', () => {
+    const result = applyZoom(500, 500, 20, { x: 0, y: 0 }, 1.1, 1000, 1000)
+    expect(result.scale).toBe(MAX_SCALE)
+    expect(result.scale).toBe(20)
+  })
+
+  test('MAP-04-g: applyZoom clamps scale at MIN_SCALE=0.5', () => {
+    const result = applyZoom(500, 500, 0.5, { x: 0, y: 0 }, 1 / 1.1, 1000, 1000)
+    expect(result.scale).toBe(MIN_SCALE)
+    expect(result.scale).toBe(0.5)
+  })
+
+  test('MAP-04-h: applyZoom preserves cursor world-point', () => {
+    const cx = 400, cy = 300, s = 1.5, off = { x: 10, y: 20 }, W = 1000, H = 1000
+    const worldBefore = screenToWorld(cx, cy, s, off, W, H)
+    const result = applyZoom(cx, cy, s, off, 1.1, W, H)
+    const worldAfter = screenToWorld(cx, cy, result.scale, result.offset, W, H)
+    expect(worldAfter.x).toBeCloseTo(worldBefore.x, 5)
+    expect(worldAfter.y).toBeCloseTo(worldBefore.y, 5)
+  })
+})
+
+// ─── MAP-05: clampPan ─────────────────────────────────────────────────────
+
+describe('MAP-05: clampPan', () => {
+  test('MAP-05-a: no-op when offset is within bounds at scale=1', () => {
+    const result = clampPan({ x: 0, y: 0 }, 1, 1000, 1000)
+    expect(result).toEqual({ x: 0, y: 0 })
+  })
+
+  test('MAP-05-b: clamps large positive offset to maxX/maxY', () => {
+    const result = clampPan({ x: 10000, y: 10000 }, 1, 1000, 1000)
+    // maxX = 1000 * (1 - 0.1) = 900, maxY = 900
+    expect(result.x).toBe(900)
+    expect(result.y).toBe(900)
+  })
+
+  test('MAP-05-c: clamps large negative offset to minX/minY', () => {
+    const result = clampPan({ x: -10000, y: -10000 }, 1, 1000, 1000)
+    // minX = 1000 * 0.1 - 1000 * 1 = 100 - 1000 = -900
+    expect(result.x).toBe(-900)
+    expect(result.y).toBe(-900)
+  })
+
+  test('MAP-05-d: correct bounds at scale=2', () => {
+    // worldW = 1000*2 = 2000, minX = 100-2000 = -1900, maxX = 900
+    // offset {x:0} is within bounds → returns {x:0, y:0}
+    const result = clampPan({ x: 0, y: 0 }, 2, 1000, 1000)
+    expect(result).toEqual({ x: 0, y: 0 })
   })
 })
