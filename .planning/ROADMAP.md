@@ -98,9 +98,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: Canvas setup — `<canvas>` ref, `ResizeObserver`, `requestAnimationFrame` loop reading `getState()`
-- [ ] 05-02: Unit dot rendering — 2px filled circles, Alpha/Bravo/destroyed colour scheme
-- [ ] 05-03: Zone control overlay — centroid computation, tinted zone circle, HTML legend overlay
+- [ ] 05-01-PLAN.md — Canvas scaffold: `<canvas>` ref, `ResizeObserver`, `requestAnimationFrame` loop reading `getState()` (MAP-01 TDD RED→GREEN)
+- [ ] 05-02-PLAN.md — Unit dot rendering: 2px filled circles, Alpha/Bravo/destroyed colour scheme (MAP-01, MAP-02 TDD RED→GREEN)
+- [ ] 05-03-PLAN.md — Zone control overlay: count-within-radius, tinted zone circle, HTML legend overlay (MAP-03 TDD RED→GREEN)
 
 ---
 
