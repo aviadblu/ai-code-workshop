@@ -1,5 +1,26 @@
-import { useMemo } from 'react'
+import { useRef, useMemo } from 'react'
 import { useUnitsStore } from '../store/units'
+
+function PulsingValue({ value, style }: { value: React.ReactNode; style?: React.CSSProperties }) {
+  const renderCount = useRef(0)
+  renderCount.current += 1
+  return (
+    <span key={renderCount.current} className="pulse-value" style={style}>
+      {value}
+    </span>
+  )
+}
+
+const CELL: React.CSSProperties = {
+  border: '1px solid #00ff41',
+  background: 'rgba(0,255,65,0.03)',
+  padding: '4px 10px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  minWidth: 80,
+  gap: 2,
+}
 
 export default function KPIBar() {
   const units = useUnitsStore(s => s.units)
@@ -18,14 +39,29 @@ export default function KPIBar() {
   }, [units])
 
   return (
-    <div style={{
-      border: '1px solid #444', padding: '0.5rem',
-      display: 'flex', gap: 24, flexWrap: 'wrap', fontSize: 13,
-    }}>
-      <span>Alpha alive: <strong>{kpi.alphaAlive}</strong></span>
-      <span>Bravo alive: <strong>{kpi.bravoAlive}</strong></span>
-      <span>Destroyed: <strong>{kpi.destroyed}</strong></span>
-      <span>Zone: Alpha <strong>{kpi.alphaZonePct}%</strong> / Bravo <strong>{kpi.bravoZonePct}%</strong></span>
+    <div className="hud-panel" style={{ display: 'flex', gap: 8, padding: '6px 8px', flexWrap: 'wrap' }}>
+      <div style={CELL}>
+        <div className="hud-label">Alpha</div>
+        <PulsingValue value={kpi.alphaAlive} style={{ color: '#3b82f6' }} />
+      </div>
+      <div style={CELL}>
+        <div className="hud-label">Bravo</div>
+        <PulsingValue value={kpi.bravoAlive} style={{ color: '#ef4444' }} />
+      </div>
+      <div style={CELL}>
+        <span>
+          <div className="hud-label" style={{ marginBottom: 2 }}>Destroyed</div>
+          <PulsingValue value={kpi.destroyed} />
+        </span>
+      </div>
+      <div style={CELL}>
+        <div className="hud-label">Alpha Zone</div>
+        <PulsingValue value={`${kpi.alphaZonePct}%`} style={{ color: '#3b82f6' }} />
+      </div>
+      <div style={CELL}>
+        <div className="hud-label">Bravo Zone</div>
+        <PulsingValue value={`${kpi.bravoZonePct}%`} style={{ color: '#ef4444' }} />
+      </div>
     </div>
   )
 }
