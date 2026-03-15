@@ -66,16 +66,16 @@ describe('UNITS-01: Filter bar', () => {
 
   it('UNITS-01-d: selecting a status option removes units with other statuses from rendered rows', () => {
     render(<UnitsPanel />)
-    // Before filtering — multiple statuses present
     const select = screen.getByRole('combobox')
-    // Filter to 'idle' only (only u-001 has status idle)
+    // Filter to 'idle' only — u-001 is the only idle unit
     fireEvent.change(select, { target: { value: 'idle' } })
-    // 'moving', 'attacking', 'destroyed' units should not appear
-    expect(screen.queryByText('moving')).toBeNull()
-    expect(screen.queryByText('attacking')).toBeNull()
-    expect(screen.queryByText('destroyed')).toBeNull()
-    // 'idle' unit should appear
-    expect(screen.getByText('idle')).toBeDefined()
+    // Unit IDs with other statuses should not appear as row content
+    // (u-002=moving, u-003=attacking, u-004=destroyed)
+    expect(screen.queryByText('u-002')).toBeNull()
+    expect(screen.queryByText('u-003')).toBeNull()
+    expect(screen.queryByText('u-004')).toBeNull()
+    // The idle unit should appear
+    expect(screen.getByText('u-001')).toBeDefined()
   })
 
   it('UNITS-01-e: changing health max hides units outside the health range', () => {
@@ -132,10 +132,20 @@ describe('UNITS-02: Virtualized list', () => {
 describe('UNITS-03: Row content', () => {
   it('UNITS-03-a: each row contains the unit id, team, and status text', () => {
     render(<UnitsPanel />)
-    // u-001: alpha, idle
+    // All four unit IDs must be present as row content
     expect(screen.getByText('u-001')).toBeDefined()
-    expect(screen.getByText('alpha')).toBeDefined()
-    expect(screen.getByText('idle')).toBeDefined()
+    expect(screen.getByText('u-002')).toBeDefined()
+    expect(screen.getByText('u-003')).toBeDefined()
+    expect(screen.getByText('u-004')).toBeDefined()
+    // Teams — both alpha (x2) and bravo (x2) appear; use getAllByText
+    expect(screen.getAllByText('alpha').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('bravo').length).toBeGreaterThanOrEqual(1)
+    // Statuses appear as row spans (also present in dropdown options, use getAllByText)
+    expect(screen.getAllByText('idle').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('moving').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('attacking').length).toBeGreaterThanOrEqual(1)
+    // 'destroyed' appears as a status span (u-004) and option
+    expect(screen.getAllByText('destroyed').length).toBeGreaterThanOrEqual(1)
   })
 
   it('UNITS-03-b: each row contains a health progress bar whose inline width reflects health', () => {
