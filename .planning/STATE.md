@@ -4,8 +4,8 @@ milestone: v1.0
 milestone_name: milestone
 status: completed
 stopped_at: Completed 05-03-PLAN.md
-last_updated: "2026-03-15T13:18:35.231Z"
-last_activity: "2026-03-15 — Plan 04-02 complete: useSSE hook + App.tsx wiring, TypeScript clean, 8/8 tests pass"
+last_updated: "2026-03-15T13:21:27.836Z"
+last_activity: "2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass"
 progress:
   total_phases: 7
   completed_phases: 5
