@@ -195,6 +195,23 @@ export default function TacticalMap() {
     return () => canvas.removeEventListener('wheel', handleWheel)
   }, [])
 
+  function handleReset() {
+    scaleRef.current = 1
+    offsetRef.current = { x: 0, y: 0 }
+    setDisplayZoom(100)
+  }
+
+  function handleZoomStep(factor: number) {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const cx = canvas.width / 2
+    const cy = canvas.height / 2
+    const result = applyZoom(cx, cy, scaleRef.current, offsetRef.current, factor, canvas.width, canvas.height)
+    scaleRef.current = result.scale
+    offsetRef.current = result.offset
+    setDisplayZoom(Math.round(result.scale * 100))
+  }
+
   // Drag handler — mousemove/mouseup on window so drag continues outside canvas
   useEffect(() => {
     const canvas = canvasRef.current
@@ -220,8 +237,23 @@ export default function TacticalMap() {
     }
   }, [])
 
+  // R key shortcut — resets view
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'r' || e.key === 'R') handleReset()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [])
+
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '400px', background: '#111' }}>
+      <div style={{ display: 'flex', gap: 8, padding: '4px 8px', background: 'rgba(0,0,0,0.7)', alignItems: 'center' }}>
+        <button aria-label="Zoom in" onClick={() => handleZoomStep(1.25)}>+</button>
+        <button aria-label="Zoom out" onClick={() => handleZoomStep(1 / 1.25)}>−</button>
+        <span>{displayZoom}%</span>
+        <button aria-label="Reset view" onClick={handleReset}>Reset [R]</button>
+      </div>
       <canvas
         ref={canvasRef}
         style={{ display: 'block', width: '100%', height: '100%' }}
