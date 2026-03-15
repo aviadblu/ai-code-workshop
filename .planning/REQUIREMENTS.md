@@ -36,7 +36,7 @@
 ### Tactical Map
 
 - [x] **MAP-01**: Canvas 2D renders all 20k unit dots at 60fps via `requestAnimationFrame` — reads store via `getState()`, never via React hooks
-- [ ] **MAP-02**: Unit dots are colour-coded: Alpha=blue, Bravo=red, destroyed=grey
+- [x] **MAP-02**: Unit dots are colour-coded: Alpha=blue, Bravo=red, destroyed=grey
 - [ ] **MAP-03**: Canvas renders a zone control overlay (tinted circle) indicating which team owns the central zone based on unit centroids
 
 ### Units Panel
@@ -95,7 +95,7 @@
 | STATE-01 | Phase 4 | Complete |
 | STATE-02 | Phase 4 | Complete |
 | MAP-01 | Phase 5 | Complete |
-| MAP-02 | Phase 5 | Pending |
+| MAP-02 | Phase 5 | Complete |
 | MAP-03 | Phase 5 | Pending |
 | UNITS-01 | Phase 6 | Pending |
 | UNITS-02 | Phase 6 | Pending |
