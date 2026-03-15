@@ -30,8 +30,8 @@
 
 ### Client State
 
-- [ ] **STATE-01**: Zustand store holds all units in a `Map<string, Unit>` and applies deltas via O(1) `map.set()` patching — only changed units touched
-- [ ] **STATE-02**: Store maintains a ring buffer of the last 50 game events — capped regardless of events per tick
+- [x] **STATE-01**: Zustand store holds all units in a `Map<string, Unit>` and applies deltas via O(1) `map.set()` patching — only changed units touched
+- [x] **STATE-02**: Store maintains a ring buffer of the last 50 game events — capped regardless of events per tick
 
 ### Tactical Map
 
@@ -92,8 +92,8 @@
 | SSE-02 | Phase 3 | Complete |
 | SSE-03 | Phase 3 | Complete |
 | API-01 | Phase 3 | Complete |
-| STATE-01 | Phase 4 | Pending |
-| STATE-02 | Phase 4 | Pending |
+| STATE-01 | Phase 4 | Complete |
+| STATE-02 | Phase 4 | Complete |
 | MAP-01 | Phase 5 | Pending |
 | MAP-02 | Phase 5 | Pending |
 | MAP-03 | Phase 5 | Pending |
