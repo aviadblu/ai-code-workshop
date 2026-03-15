@@ -135,22 +135,24 @@ describe('MAP-02: unit dot colour coding', () => {
     Object.defineProperty(mockCtx, 'fillStyle', { value: '', writable: true, configurable: true })
   })
 
-  test('MAP-02-d: ctx.beginPath() is called once per unit (3 units → 3 beginPath calls)', () => {
+  test('MAP-02-d: ctx.beginPath() is called once per unit plus one extra for the zone arc (3 units → 4 beginPath calls)', () => {
     const { container } = rtlRender(<TacticalMap />)
     setupCanvas(container)
 
     act(() => { rafCallback!(performance.now()) })
 
-    expect(mockCtx.beginPath.mock.calls.length).toBe(3)
+    // 3 unit dots + 1 zone control arc = 4 total beginPath calls
+    expect(mockCtx.beginPath.mock.calls.length).toBe(4)
   })
 
-  test('MAP-02-e: With 3 units, ctx.arc is called exactly 3 times per rAF frame', () => {
+  test('MAP-02-e: With 3 units, ctx.arc is called 3 times for dots plus 1 for zone arc (4 total)', () => {
     const { container } = rtlRender(<TacticalMap />)
     setupCanvas(container)
 
     act(() => { rafCallback!(performance.now()) })
 
-    expect(mockCtx.arc.mock.calls.length).toBe(3)
+    // 3 unit dots + 1 zone control arc = 4 total arc calls
+    expect(mockCtx.arc.mock.calls.length).toBe(4)
   })
 
   test('MAP-02-f: Coordinates scaled correctly — u-003 at x=0, y=1000 draws arc at (0, 1000)', () => {
