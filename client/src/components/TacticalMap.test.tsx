@@ -49,6 +49,120 @@ beforeEach(() => {
   rafCallback = null
 })
 
+describe('MAP-02: unit dot colour coding', () => {
+  const testUnits = new Map([
+    ['u-001', { id: 'u-001', team: 'alpha' as const, x: 500, y: 250, health: 80, status: 'moving' as const }],
+    ['u-002', { id: 'u-002', team: 'bravo' as const, x: 100, y: 100, health: 50, status: 'idle' as const }],
+    ['u-003', { id: 'u-003', team: 'alpha' as const, x: 0, y: 1000, health: 0, status: 'destroyed' as const }],
+  ])
+
+  function setupCanvas(container: Element, width = 1000, height = 1000) {
+    const canvas = container.querySelector('canvas') as HTMLCanvasElement
+    Object.defineProperty(canvas, 'width', { value: width, writable: true, configurable: true })
+    Object.defineProperty(canvas, 'height', { value: height, writable: true, configurable: true })
+    return canvas
+  }
+
+  beforeEach(() => {
+    ;(useUnitsStore.getState as ReturnType<typeof vi.fn>).mockReturnValue({
+      units: testUnits,
+      events: [],
+      tick: 0,
+    })
+  })
+
+  test('MAP-02-a: Alpha living unit sets fillStyle to #3b82f6 and arc at scaled coords', () => {
+    const fillStyles: string[] = []
+    const origFillStyleDescriptor = Object.getOwnPropertyDescriptor(mockCtx, 'fillStyle')
+    Object.defineProperty(mockCtx, 'fillStyle', {
+      get() { return this._fillStyle ?? '' },
+      set(v: string) { this._fillStyle = v; fillStyles.push(v) },
+      configurable: true,
+    })
+
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    expect(fillStyles).toContain('#3b82f6')
+    // u-001: x=500, y=250 on 1000×1000 canvas → arc(500, 250, ...)
+    expect(mockCtx.arc).toHaveBeenCalledWith(500, 250, 1, 0, Math.PI * 2)
+
+    // restore
+    if (origFillStyleDescriptor) {
+      Object.defineProperty(mockCtx, 'fillStyle', origFillStyleDescriptor)
+    } else {
+      delete (mockCtx as any).fillStyle
+      ;(mockCtx as any).fillStyle = ''
+    }
+  })
+
+  test('MAP-02-b: Bravo living unit sets fillStyle to #ef4444', () => {
+    const fillStyles: string[] = []
+    Object.defineProperty(mockCtx, 'fillStyle', {
+      get() { return this._fillStyle ?? '' },
+      set(v: string) { this._fillStyle = v; fillStyles.push(v) },
+      configurable: true,
+    })
+
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    expect(fillStyles).toContain('#ef4444')
+
+    Object.defineProperty(mockCtx, 'fillStyle', { value: '', writable: true, configurable: true })
+  })
+
+  test('MAP-02-c: Destroyed unit (any team) sets fillStyle to #6b7280', () => {
+    const fillStyles: string[] = []
+    Object.defineProperty(mockCtx, 'fillStyle', {
+      get() { return this._fillStyle ?? '' },
+      set(v: string) { this._fillStyle = v; fillStyles.push(v) },
+      configurable: true,
+    })
+
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    expect(fillStyles).toContain('#6b7280')
+
+    Object.defineProperty(mockCtx, 'fillStyle', { value: '', writable: true, configurable: true })
+  })
+
+  test('MAP-02-d: ctx.beginPath() is called once per unit (3 units → 3 beginPath calls)', () => {
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    expect(mockCtx.beginPath.mock.calls.length).toBe(3)
+  })
+
+  test('MAP-02-e: With 3 units, ctx.arc is called exactly 3 times per rAF frame', () => {
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    expect(mockCtx.arc.mock.calls.length).toBe(3)
+  })
+
+  test('MAP-02-f: Coordinates scaled correctly — u-003 at x=0, y=1000 draws arc at (0, 1000)', () => {
+    const { container } = rtlRender(<TacticalMap />)
+    setupCanvas(container)
+
+    act(() => { rafCallback!(performance.now()) })
+
+    // u-003: x=0, y=1000 on 1000×1000 canvas → arc(0, 1000, 1, 0, Math.PI * 2)
+    expect(mockCtx.arc).toHaveBeenCalledWith(0, 1000, 1, 0, Math.PI * 2)
+  })
+})
+
 describe('MAP-01: rAF loop + canvas scaffold', () => {
   test('MAP-01-a: Rendering TacticalMap mounts a <canvas> element in the DOM', () => {
     const { container } = rtlRender(<TacticalMap />)
