@@ -10,7 +10,8 @@ export default function EventFeed() {
   const events = useUnitsStore(s => s.events)
 
   return (
-    <div style={{ border: '1px solid #444', padding: '0.5rem' }}>
+    <div className="hud-panel" style={{ padding: '0.5rem' }}>
+      <div className="hud-label" style={{ marginBottom: 4 }}>Event Log</div>
       <div style={{ overflowY: 'auto', maxHeight: '30vh' }}>
         {events.map((event, i) => (
           <div

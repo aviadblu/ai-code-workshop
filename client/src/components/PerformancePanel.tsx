@@ -46,7 +46,7 @@ function PerfMetrics() {
 export default function PerformancePanel() {
   const [open, setOpen] = useState(false)
   return (
-    <div style={{ border: '1px solid #444', padding: '8px', fontFamily: 'monospace' }}>
+    <div className="hud-panel" style={{ padding: '8px', fontFamily: 'var(--hud-font)' }}>
       <button onClick={() => setOpen(o => !o)} style={{ fontSize: '12px', cursor: 'pointer' }}>
         {open ? 'Hide Perf' : 'Show Perf'}
       </button>

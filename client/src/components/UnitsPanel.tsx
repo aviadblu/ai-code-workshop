@@ -32,7 +32,8 @@ export default function UnitsPanel() {
   })
 
   return (
-    <div style={{ border: '1px solid #444', padding: '0.5rem' }}>
+    <div className="hud-panel" style={{ padding: '0.5rem' }}>
+      <div className="hud-label" style={{ marginBottom: 4 }}>Units</div>
       {/* Filter bar */}
       <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
         <select

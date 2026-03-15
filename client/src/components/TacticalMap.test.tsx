@@ -329,11 +329,11 @@ describe('MAP-03: zone control overlay', () => {
     expect(mockCtx.arc.mock.calls.length).toBeGreaterThan(testUnits.size)
   })
 
-  // MAP-03-g: Legend div renders in the DOM with text Alpha, Bravo, Destroyed
+  // MAP-03-g: Legend div renders in the DOM with ALPHA, BRAVO, KIA labels (HUD ALLCAPS style)
   test('MAP-03-g: legend div renders in the DOM with Alpha, Bravo, Destroyed labels', () => {
     rtlRender(<TacticalMap />)
-    expect(screen.getByText('Alpha')).toBeTruthy()
-    expect(screen.getByText('Bravo')).toBeTruthy()
-    expect(screen.getByText('Destroyed')).toBeTruthy()
+    expect(screen.getByText(/ALPHA/)).toBeTruthy()
+    expect(screen.getByText(/BRAVO/)).toBeTruthy()
+    expect(screen.getByText(/KIA/)).toBeTruthy()
   })
 })

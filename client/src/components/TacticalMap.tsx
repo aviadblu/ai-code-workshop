@@ -111,14 +111,20 @@ export default function TacticalMap() {
       />
       <div style={{
         position: 'absolute', bottom: 8, left: 8,
-        background: 'rgba(0,0,0,0.6)', color: '#fff',
-        padding: '4px 8px', fontSize: '11px', borderRadius: 4,
-        display: 'flex', gap: 12,
+        border: '1px solid #00ff41',
+        background: 'rgba(0,0,0,0.85)',
+        color: '#c8ffc8',
+        padding: '4px 8px',
+        fontSize: '10px',
+        fontFamily: 'var(--hud-font)',
+        letterSpacing: '0.08em',
+        display: 'flex',
+        gap: 12,
       }}>
-        <span><span style={{ color: '#3b82f6' }}>■</span> Alpha</span>
-        <span><span style={{ color: '#ef4444' }}>■</span> Bravo</span>
-        <span><span style={{ color: '#6b7280' }}>■</span> Destroyed</span>
-        <span style={{ color: '#aaa' }}>Zone circle = control</span>
+        <span><span style={{ color: '#3b82f6' }}>■</span> ALPHA</span>
+        <span><span style={{ color: '#ef4444' }}>■</span> BRAVO</span>
+        <span><span style={{ color: '#6b7280' }}>■</span> KIA</span>
+        <span style={{ color: '#5a7a5a' }}>ZONE = CONTROL</span>
       </div>
     </div>
   )
