@@ -1,0 +1,54 @@
+/* client/src/index.css — HUD theme foundation for Phase 8 */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --hud-bg: #0a0a0a;
+  --hud-green: #00ff41;
+  --hud-amber: #ff8c00;
+  --hud-blue: #3b82f6;
+  --hud-red: #ef4444;
+  --hud-grey: #6b7280;
+  --hud-border: 1px solid #00ff41;
+  --hud-font: 'Share Tech Mono', monospace;
+  --hud-panel-bg: #0d0d0d;
+  --hud-text-muted: #5a7a5a;
+}
+
+body {
+  background: var(--hud-bg);
+  color: var(--hud-green);
+  font-family: var(--hud-font);
+  margin: 0;
+}
+
+.hud-panel {
+  border: var(--hud-border);
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+@keyframes pulse-amber {
+  0%   { color: var(--hud-amber); text-shadow: 0 0 8px var(--hud-amber); }
+  100% { color: var(--hud-green); text-shadow: none; }
+}
+
+.pulse-value {
+  animation: pulse-amber 0.6s ease-out forwards;
+}
+
+.hud-label {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--hud-text-muted);
+}
