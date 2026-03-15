@@ -9,7 +9,7 @@ Build a live battle dashboard from scratch in 7 phases. Start with repo scaffold
 - [x] **Phase 1: Foundation** — Repo scaffold, TypeScript config, shared types, basic server + client running
 - [x] **Phase 2: Simulation Engine** — 20k unit generation, 1-second tick loop, move/attack/idle/destroyed logic (completed 2026-03-14)
 - [x] **Phase 3: SSE Transport** — SSE connection manager, snapshot on connect, tick broadcast, GET /units endpoint (completed 2026-03-15)
-- [ ] **Phase 4: Client State** — Zustand store with Map-based unit state, ring buffer events, useSSE hook
+- [x] **Phase 4: Client State** — Zustand store with Map-based unit state, ring buffer events, useSSE hook (completed 2026-03-15)
 - [ ] **Phase 5: Tactical Map** — Canvas 2D rAF loop, unit dot rendering, zone control overlay
 - [ ] **Phase 6: Dashboard Panels** — Units panel (filters + virtual list), Event feed, KPI bar
 - [ ] **Phase 7: Performance Panel** — FPS/heap/latency monitoring, 2Hz updates, collapsible UI
@@ -147,7 +147,7 @@ Plans:
 | 1. Foundation | 3/3 | Complete | 2026-03-14 |
 | 2. Simulation Engine | 3/3 | Complete    | 2026-03-15 |
 | 3. SSE Transport | 2/2 | Complete    | 2026-03-15 |
-| 4. Client State | 1/2 | In Progress|  |
+| 4. Client State | 1/2 | Complete    | 2026-03-15 |
 | 5. Tactical Map | 0/3 | Not started | - |
 | 6. Dashboard Panels | 0/3 | Not started | - |
 | 7. Performance Panel | 0/2 | Not started | - |
