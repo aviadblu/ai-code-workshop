@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-15T10:23:15.060Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-15T12:42:23.597Z"
 last_activity: "2026-03-15 — Plan 04-02 complete: useSSE hook + App.tsx wiring, TypeScript clean, 8/8 tests pass"
 progress:
   total_phases: 7
   completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
+  total_plans: 13
+  completed_plans: 11
   percent: 100
 ---
 
@@ -59,6 +59,7 @@ Progress: [██████████] 100%
 | Phase 03-sse-transport P02 | 2min | 3 tasks | 3 files |
 | Phase 04-client-state P01 | 2min | 2 tasks | 6 files |
 | Phase 04-client-state P02 | 2min | 2 tasks | 2 files |
+| Phase 05-tactical-map P01 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [Phase 04-client-state]: vitest globals:true requires types:[vitest/globals] in tsconfig for tsc --noEmit — added to client/tsconfig.json
 - [Phase 04-client-state]: Empty dep array [] in useSSE — open once on mount, native EventSource handles reconnect
 - [Phase 04-client-state]: useUnitsStore.getState() (not hook) inside useEffect — hooks cannot be called inside other hooks
+- [Phase 05-tactical-map]: canvas.width/height written directly from ResizeObserver — no useState to avoid React re-renders on resize
+- [Phase 05-tactical-map]: useUnitsStore.getState() (not hook) inside rAF draw callback — hooks cannot be called inside non-hook functions
 
 ### Pending Todos
 
@@ -98,7 +101,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T10:20:42.437Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-15T12:42:08.475Z
+Stopped at: Completed 05-01-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
