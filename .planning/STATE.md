@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-15T13:11:15.430Z"
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-15T13:18:35.231Z"
 last_activity: "2026-03-15 — Plan 04-02 complete: useSSE hook + App.tsx wiring, TypeScript clean, 8/8 tests pass"
 progress:
   total_phases: 7
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Tactical map and dashboard panels update live from a server-pushed stream, showing the full 20k-unit battlefield state without DOM thrashing or page reloads.
-**Current focus:** Phase 5 — Canvas Rendering
+**Current focus:** Phase 6 — next phase
 
 ## Current Position
 
-Phase: 4 of 7 (Client SSE Integration) — Complete
-Plan: 2 of 2 complete
-Status: Phase 4 complete — useSSE hook connects EventSource to Zustand store; App.tsx wired; ready for Phase 5
-Last activity: 2026-03-15 — Plan 04-02 complete: useSSE hook + App.tsx wiring, TypeScript clean, 8/8 tests pass
+Phase: 5 of 7 (Canvas Rendering) — Complete
+Plan: 3 of 3 complete
+Status: Phase 5 complete — TacticalMap renders 20k dots at 60fps with colour coding, zone control overlay, and HTML legend; 27/27 tests green
+Last activity: 2026-03-15 — Plan 05-03 complete: computeZoneOwner exported, zone arc overlay, HTML legend, 19/19 MAP-01+MAP-02+MAP-03 tests pass
 
 Progress: [██████████] 100%
 
@@ -61,6 +61,7 @@ Progress: [██████████] 100%
 | Phase 04-client-state P02 | 2min | 2 tasks | 2 files |
 | Phase 05-tactical-map P01 | 4min | 2 tasks | 2 files |
 | Phase 05-tactical-map P02 | 6min | 2 tasks | 2 files |
+| Phase 05-tactical-map P03 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,9 @@ Recent decisions affecting current work:
 - [Phase 05-tactical-map]: useUnitsStore.getState() (not hook) inside rAF draw callback — hooks cannot be called inside non-hook functions
 - [Phase 05-tactical-map]: COLOURS const defined at module level — avoids object recreation on every render
 - [Phase 05-tactical-map]: for...of units.values() over spread — prevents 20k-element array allocation per frame at 60fps
+- [Phase 05-tactical-map]: computeZoneOwner extracted as named export for testability without canvas
+- [Phase 05-tactical-map]: count-within-radius algorithm for zone ownership (not centroid distance)
+- [Phase 05-tactical-map]: alphaCount >= bravoCount tie-breaks to alpha
 
 ### Pending Todos
 
@@ -104,7 +108,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-15T13:11:15.428Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-15T13:18:35.230Z
+Stopped at: Completed 05-03-PLAN.md
 Resume at: Phase 4, Plan 04-02 — useSSE hook
 Resume file: None
