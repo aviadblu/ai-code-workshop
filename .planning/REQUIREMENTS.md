@@ -20,9 +20,9 @@
 
 ### SSE Transport
 
-- [ ] **SSE-01**: Client receives a full snapshot of all 20k units on SSE connection (`event: snapshot`)
-- [ ] **SSE-02**: Client receives a `TickDelta` (changed units + game events) every second (`event: tick`)
-- [ ] **SSE-03**: SSE connection auto-reconnects on drop and re-bootstraps from a new snapshot before resuming delta application
+- [x] **SSE-01**: Client receives a full snapshot of all 20k units on SSE connection (`event: snapshot`)
+- [x] **SSE-02**: Client receives a `TickDelta` (changed units + game events) every second (`event: tick`)
+- [x] **SSE-03**: SSE connection auto-reconnects on drop and re-bootstraps from a new snapshot before resuming delta application
 
 ### API
 
@@ -88,9 +88,9 @@
 | SIM-02 | Phase 2 | Complete |
 | SIM-03 | Phase 2 | Complete |
 | SIM-04 | Phase 2 | Complete |
-| SSE-01 | Phase 3 | Pending |
-| SSE-02 | Phase 3 | Pending |
-| SSE-03 | Phase 3 | Pending |
+| SSE-01 | Phase 3 | Complete |
+| SSE-02 | Phase 3 | Complete |
+| SSE-03 | Phase 3 | Complete |
 | API-01 | Phase 3 | Pending |
 | STATE-01 | Phase 4 | Pending |
 | STATE-02 | Phase 4 | Pending |

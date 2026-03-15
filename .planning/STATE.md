@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in_progress
-stopped_at: "Phase 2 complete — ready to start Phase 3: SSE Transport"
-last_updated: "2026-03-14T00:00:00.000Z"
+status: completed
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-15T09:33:31.775Z"
 last_activity: "2026-03-14 — Plan 02-03 complete: simulation wired into server, Phase 2 all success criteria verified live"
 progress:
   total_phases: 7
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 7
   percent: 67
 ---
 
@@ -53,6 +53,7 @@ Progress: [███████░░░] 67%
 | Phase 02-simulation-engine P01 | 2 | 2 tasks | 4 files |
 | Phase 02-simulation-engine P02 | 2 | 2 tasks | 2 files |
 | Phase 02-simulation-engine P03 | 5min | 1 tasks | 1 files |
+| Phase 03-sse-transport P01 | 12min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,10 @@ Recent decisions affecting current work:
 - [Phase 02-simulation-engine]: simulation.ts module-closure singleton — units Map unexported, no global state leaks
 - [Phase 02-simulation-engine]: Skip destroyed units mid-tick: unit attacked to 0 health must not have status overwritten by its own move/attack action in same tick
 - [Phase 02-simulation-engine]: initSimulation() called inside try block after server.listen() — simulation only starts if server is up
+- [Phase 03-sse-transport]: CORS header set manually in reply.raw.writeHead (not @fastify/cors) — hijacked replies bypass Fastify lifecycle hooks
+- [Phase 03-sse-transport]: Real HTTP server (port 0) used for SSE tests — server.inject() hangs on never-ending SSE response
+- [Phase 03-sse-transport]: vi.hoisted() used for vi.mock() factory variables — required by Vitest ESM hoisting behavior
+- [Phase 03-sse-transport]: subscribe() called once in registerSSE (not per connection) — prevents N×subscriber accumulation
 
 ### Pending Todos
 
@@ -84,7 +89,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-14T00:00:00.000Z
-Stopped at: Phase 2 complete — Plan 02-03 all tasks done, human verification passed
+Last session: 2026-03-15T09:33:31.773Z
+Stopped at: Completed 03-01-PLAN.md
 Resume at: Phase 3, Plan 03-01 — SSE connection manager
-Resume file: .planning/phases/03-sse-transport/03-01-PLAN.md
+Resume file: None
