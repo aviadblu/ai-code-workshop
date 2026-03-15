@@ -1,6 +1,66 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useUnitsStore } from '../store/units'
 import type { Unit } from '../types'
+
+export const MIN_SCALE = 0.5
+export const MAX_SCALE = 20
+
+export function worldToScreen(
+  worldX: number, worldY: number,
+  scale: number, offset: { x: number; y: number },
+  canvasWidth: number, canvasHeight: number,
+): { x: number; y: number } {
+  return {
+    x: (worldX / 1000) * canvasWidth * scale + offset.x,
+    y: (worldY / 1000) * canvasHeight * scale + offset.y,
+  }
+}
+
+export function screenToWorld(
+  screenX: number, screenY: number,
+  scale: number, offset: { x: number; y: number },
+  canvasWidth: number, canvasHeight: number,
+): { x: number; y: number } {
+  return {
+    x: ((screenX - offset.x) / scale / canvasWidth) * 1000,
+    y: ((screenY - offset.y) / scale / canvasHeight) * 1000,
+  }
+}
+
+export function clampPan(
+  offset: { x: number; y: number },
+  scale: number,
+  canvasWidth: number,
+  canvasHeight: number,
+): { x: number; y: number } {
+  const worldW = canvasWidth * scale
+  const worldH = canvasHeight * scale
+  const margin = 0.1
+  const minX = canvasWidth * margin - worldW
+  const maxX = canvasWidth * (1 - margin)
+  const minY = canvasHeight * margin - worldH
+  const maxY = canvasHeight * (1 - margin)
+  return {
+    x: Math.max(minX, Math.min(maxX, offset.x)),
+    y: Math.max(minY, Math.min(maxY, offset.y)),
+  }
+}
+
+export function applyZoom(
+  cursorX: number, cursorY: number,
+  currentScale: number, currentOffset: { x: number; y: number },
+  zoomFactor: number,
+  canvasWidth: number, canvasHeight: number,
+): { scale: number; offset: { x: number; y: number } } {
+  const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, currentScale * zoomFactor))
+  const worldX = (cursorX - currentOffset.x) / currentScale
+  const worldY = (cursorY - currentOffset.y) / currentScale
+  const newOffset = {
+    x: cursorX - worldX * newScale,
+    y: cursorY - worldY * newScale,
+  }
+  return { scale: newScale, offset: clampPan(newOffset, newScale, canvasWidth, canvasHeight) }
+}
 
 export function computeZoneOwner(
   units: Map<string, Unit>,
@@ -34,6 +94,11 @@ const COLOURS = {
 
 export default function TacticalMap() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const scaleRef = useRef<number>(1)
+  const offsetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
+  const isDraggingRef = useRef(false)
+  const dragStartRef = useRef({ x: 0, y: 0 })
+  const [displayZoom, setDisplayZoom] = useState(100)
 
   // ResizeObserver — writes directly to canvas dimensions, no React state
   useEffect(() => {
@@ -72,6 +137,9 @@ export default function TacticalMap() {
 
       const { units } = useUnitsStore.getState()
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.save()
+      ctx.translate(offsetRef.current.x, offsetRef.current.y)
+      ctx.scale(scaleRef.current, scaleRef.current)
 
       for (const unit of units.values()) {
         const colour = unit.status === 'destroyed' ? COLOURS.destroyed : COLOURS[unit.team]
@@ -96,11 +164,60 @@ export default function TacticalMap() {
       ctx.lineWidth = 1
       ctx.stroke()
 
+      ctx.restore()
       rafId = requestAnimationFrame(draw)
     }
 
     rafId = requestAnimationFrame(draw)
     return () => cancelAnimationFrame(rafId)
+  }, [])
+
+  // Wheel handler — non-passive to allow preventDefault
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const rect = canvas.getBoundingClientRect()
+      const cursorX = e.clientX - rect.left
+      const cursorY = e.clientY - rect.top
+      const result = applyZoom(
+        cursorX, cursorY,
+        scaleRef.current, offsetRef.current,
+        e.deltaY < 0 ? 1.1 : 1 / 1.1,
+        canvas.width, canvas.height,
+      )
+      scaleRef.current = result.scale
+      offsetRef.current = result.offset
+      setDisplayZoom(Math.round(result.scale * 100))
+    }
+    canvas.addEventListener('wheel', handleWheel, { passive: false })
+    return () => canvas.removeEventListener('wheel', handleWheel)
+  }, [])
+
+  // Drag handler — mousemove/mouseup on window so drag continues outside canvas
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const handleMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return
+      isDraggingRef.current = true
+      dragStartRef.current = { x: e.clientX - offsetRef.current.x, y: e.clientY - offsetRef.current.y }
+    }
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return
+      const raw = { x: e.clientX - dragStartRef.current.x, y: e.clientY - dragStartRef.current.y }
+      offsetRef.current = clampPan(raw, scaleRef.current, canvas.width, canvas.height)
+    }
+    const handleMouseUp = () => { isDraggingRef.current = false }
+    canvas.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', handleMouseUp)
+    return () => {
+      canvas.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
   }, [])
 
   return (
